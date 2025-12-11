@@ -2,6 +2,8 @@
 
 An interactive Linux terminal game built with Next.js and React. This project aims to create an educational and fun experience to learn Linux commands through a simulated terminal.
 
+![Linux Game Screenshot](./print.png)
+
 ## 📋 About the Project
 
 **Linux Game** is a project under active development that simulates a complete Linux terminal environment. Users can practice common Linux commands such as `ls`, `cd`, `cat`, `grep`, among others, in a safe and interactive environment.
