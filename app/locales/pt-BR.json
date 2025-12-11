@@ -1,0 +1,49 @@
+{
+  "common": {
+    "username": "usuário"
+  },
+  "terminal": {
+    "welcome": "Bem-vindo ao Terminal Linux Game!",
+    "helpHint": "Digite 'help' para ver os comandos disponíveis.",
+    "terminalAt": "terminal@"
+  },
+  "commands": {
+    "help": {
+      "title": "Comandos disponíveis:",
+      "help": "help     - Mostra esta mensagem de ajuda",
+      "clear": "clear    - Limpa o terminal",
+      "ls": "ls       - Lista arquivos e diretórios",
+      "pwd": "pwd      - Mostra o diretório atual",
+      "whoami": "whoami   - Mostra o usuário atual",
+      "date": "date     - Mostra a data e hora atual",
+      "echo": "echo     - Repete o texto digitado",
+      "uname": "uname    - Mostra informações do sistema",
+      "cd": "cd       - Muda o diretório atual",
+      "cat": "cat      - Mostra o conteúdo de um arquivo"
+    },
+    "errors": {
+      "notFound": "Comando não encontrado: {cmd}. Digite 'help' para ver os comandos disponíveis.",
+      "cdNotFound": "cd: não foi possível acessar '{path}': Diretório não existe",
+      "cdNotDirectory": "cd: '{path}': Não é um diretório",
+      "lsNotFound": "ls: não foi possível acessar '{path}': Diretório não existe",
+      "lsIsFile": "ls: não é possível acessar '{path}': É um arquivo",
+      "catNotFound": "cat: não foi possível acessar '{path}': Arquivo não existe",
+      "catIsDirectory": "cat: não é possível acessar '{path}': É um diretório"
+    }
+  },
+  "metadata": {
+    "title": "Linux Game",
+    "description": "Linux Game - Teste seu conhecimento sobre Linux e aproveite para aprender mais sobre o sistema operacional."
+  },
+  "language": {
+    "switchTo": "Alternar idioma",
+    "portuguese": "Português",
+    "english": "English"
+  },
+  "screens": {
+    "welcome": {
+      "title": "Bem-vindo ao Linux Game!",
+      "description": "Este é um jogo de terminal que testa seu conhecimento sobre Linux e te ajuda a aprender mais sobre o sistema operacional. \n Por enquanto, o jogo em si não existe, mas você pode testar o terminal e os comandos disponíveis."
+    }
+  }
+}

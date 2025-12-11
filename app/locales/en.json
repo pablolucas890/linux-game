@@ -1,0 +1,49 @@
+{
+  "common": {
+    "username": "user"
+  },
+  "terminal": {
+    "welcome": "Welcome to Linux Terminal Game!",
+    "helpHint": "Type 'help' to see available commands.",
+    "terminalAt": "terminal@"
+  },
+  "commands": {
+    "help": {
+      "title": "Available commands:",
+      "help": "help     - Shows this help message",
+      "clear": "clear    - Clears the terminal",
+      "ls": "ls       - Lists files and directories",
+      "pwd": "pwd      - Shows the current directory",
+      "whoami": "whoami   - Shows the current user",
+      "date": "date     - Shows the current date and time",
+      "echo": "echo     - Repeats the typed text",
+      "uname": "uname    - Shows system information",
+      "cd": "cd       - Changes the current directory",
+      "cat": "cat      - Shows the content of a file"
+    },
+    "errors": {
+      "notFound": "Command not found: {cmd}. Type 'help' to see available commands.",
+      "cdNotFound": "cd: cannot access '{path}': No such file or directory",
+      "cdNotDirectory": "cd: '{path}': Not a directory",
+      "lsNotFound": "ls: cannot access '{path}': No such file or directory",
+      "lsIsFile": "ls: cannot access '{path}': Is a file",
+      "catNotFound": "cat: cannot access '{path}': No such file or directory",
+      "catIsDirectory": "cat: cannot access '{path}': Is a directory"
+    }
+  },
+  "metadata": {
+    "title": "Linux Game",
+    "description": "Linux Game - Test your knowledge about Linux and learn more about the operating system."
+  },
+  "language": {
+    "switchTo": "Switch language",
+    "portuguese": "Português",
+    "english": "English"
+  },
+  "screens": {
+    "welcome": {
+      "title": "Welcome to Linux Game!",
+      "description": "This is a terminal game that tests your knowledge about Linux and helps you learn more about the operating system. \n For now, the game itself does not exist, but you can test the terminal and the available commands."
+    }
+  }
+}
