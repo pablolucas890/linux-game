@@ -154,7 +154,7 @@ export function Terminal({ username, machine }: TerminalProps) {
 
       <div
         ref={terminalRef}
-        className="h-96 overflow-y-auto p-4 font-mono text-sm"
+        className="h-[440px] overflow-y-auto p-4 font-mono text-sm"
         style={{ fontFamily: "var(--font-geist-mono)" }}
       >
         {!showWelcomeMessage && (
