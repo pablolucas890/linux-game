@@ -1,25 +1,24 @@
-# Stage 1: Dependencies
 FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copiar arquivos de dependências
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Stage 2: Builder
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Desabilitar telemetria do Next.js durante o build
+RUN mkdir -p ./public && \
+    if [ ! "$(ls -A ./public 2>/dev/null)" ]; then \
+        touch ./public/.gitkeep; \
+    fi
+
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# Build da aplicação
 RUN npm run build
 
-# Stage 3: Runner
 FROM node:20-alpine AS runner
 WORKDIR /app
 
@@ -29,10 +28,9 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar arquivos necessários para produção
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
 USER nextjs
 
