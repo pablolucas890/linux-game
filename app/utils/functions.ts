@@ -149,12 +149,15 @@ export const grepResult = (content: string, pattern: string): string => {
 };
 
 export const executeCommand = (cmd: string, currentDirectory: string, setCurrentDirectory: (directory: string) => void): string => {
-  const trimmedCmd = cmd.trim().toLowerCase();
-
+  const generalCmd = cmd.trim().toLowerCase();
+  const commandHasGrep = generalCmd.includes(" | grep ");
+  const trimmedCmd = commandHasGrep ? generalCmd.split(" | grep ")?.[0]?.trim() ?? "" : generalCmd;
+  let result = "";
+  
   if (!trimmedCmd) return "";
 
   if (trimmedCmd === "help") {
-    return `${t("commands.help.title")}
+    result = `${t("commands.help.title")}
 ${t("commands.help.help")}
 ${t("commands.help.clear")}
 ${t("commands.help.ls")}
@@ -164,44 +167,36 @@ ${t("commands.help.date")}
 ${t("commands.help.echo")}
 ${t("commands.help.uname")}
 ${t("commands.help.cd")}
-${t("commands.help.cat")}`;
+${t("commands.help.cat")}
+`;
   }
   else if (trimmedCmd === "clear") {
-    return "";
+    result = "";
   }
   else if (trimmedCmd.startsWith("ls")) {
-    const commandHasGrep = trimmedCmd.includes(" | grep ");
-    const cmd = commandHasGrep ? trimmedCmd.split(" | grep ")[0].trim() : trimmedCmd;
-
-    const result = listDirectory(currentDirectory, cmd);
-
-    if (commandHasGrep) {
-      const pattern = trimmedCmd.split(" | grep ")?.[1];
-      return grepResult(result, pattern);
-    }
-    return result;
+    result = listDirectory(currentDirectory, cmd);
   }
   else if (trimmedCmd === "pwd") {
-    return currentDirectory;
+    result = currentDirectory;
   }
   else if (trimmedCmd === "whoami") {
-    return t("common.username");
+    result = t("common.username");
   }
   else if (trimmedCmd === "date") {
     // Use locale based on current translation
     const localeString = currentLocale === "en" ? "en-US" : currentLocale;
-    return new Date().toLocaleString(localeString);
+    result = new Date().toLocaleString(localeString);
   }
   else if (trimmedCmd === "uname") {
-    return `Linux game 6.12.57+deb13-amd64 #1 SMP PREEMPT x86_64 GNU/Linux`;
+    result = `Linux game 6.12.57+deb13-amd64 #1 SMP PREEMPT x86_64 GNU/Linux`;
   }
   else if (trimmedCmd.startsWith("ls ")) {
-    const targetPath = cmd.substring(3).trim();
+    const targetPath = trimmedCmd.substring(3).trim();
     const normalizedPath = normalizePath(targetPath, currentDirectory);
-    return listDirectory(normalizedPath);
+    result = listDirectory(normalizedPath);
   }
   else if (trimmedCmd.startsWith("echo ")) {
-    return cmd.substring(5).trim() || "";
+    result = cmd.substring(5).trim() || "";
   }
   else if (trimmedCmd.startsWith("cd ")) {
     const targetPath = cmd.substring(3).trim();
@@ -209,7 +204,7 @@ ${t("commands.help.cat")}`;
     if (!targetPath || targetPath === "~") {
       const newDir = "/home/user";
       setCurrentDirectory(newDir);
-      return "";
+      result = "";
     }
 
     const normalizedPath = normalizePath(targetPath, currentDirectory);
@@ -220,28 +215,22 @@ ${t("commands.help.cat")}`;
     }
 
     setCurrentDirectory(normalizedPath);
-    return "";
+    result = "";
   }
   else if (trimmedCmd === "cd") {
     setCurrentDirectory("/home/user");
-    return "";
+    result = "";
   }
   else if (trimmedCmd.startsWith("cat ")) {
-    const commandHasGrep = trimmedCmd.includes(" | grep ");
-    const cmd = commandHasGrep ? trimmedCmd.split(" | grep ")[0].trim() : trimmedCmd;
-
-    const targetPath = cmd.substring(4).trim();
+    const targetPath = trimmedCmd.substring(4).trim();
     const normalizedPath = normalizePath(targetPath, currentDirectory);
-    const result = getFileContent(normalizedPath);
+    result = getFileContent(normalizedPath);
+  }
+  else result = t("commands.errors.notFound", { cmd });
 
-    if (commandHasGrep) {
-      console.log(trimmedCmd)
-      const pattern = trimmedCmd.split(" | grep ")?.[1];
-      return grepResult(result, pattern);
-    }
-    return result;
+  if (commandHasGrep) {
+    const pattern = generalCmd.split(" | grep ")?.[1];
+    result = grepResult(result, pattern);
   }
-  else {
-    return t("commands.errors.notFound", { cmd });
-  }
+  return result;
 };
