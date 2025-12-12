@@ -12,14 +12,14 @@ export function Welcome() {
   const descriptionLines = description.split("\n");
 
   return (
-    <div className="w-full h-screen p-4 flex flex-col items-center justify-center gap-8">
+    <div className="w-full h-screen p-4 flex flex-col items-center justify-center gap-4">
       <div className="flex flex-col items-center justify-center max-w-xl text-justify">
         <h1 className="text-2xl font-bold mb-4">{t("screens.welcome.title")}</h1>
         {descriptionLines.map((line, index) => (
           <p key={index} className="text-sm text-gray-500 mb-4">{line}</p>
         ))}
         
-        <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 w-full">
+        <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 w-full">
           <div className="flex flex-wrap gap-3 justify-center">
             <Button.One href={config.links.github.repository}>
               {t("screens.welcome.links.github")}

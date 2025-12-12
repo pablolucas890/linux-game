@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "../contexts/i18n";
 import { commands, executeCommand, setTranslationFunction } from "../lib/terminal";
@@ -16,6 +17,7 @@ export function Terminal({ username, machine }: TerminalProps) {
   const [commandIndex, setCommandIndex] = useState(-1);
   const [currentDirectory, setCurrentDirectory] = useState("/home/user");
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+  const [maximized, setMaximized] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -153,11 +155,11 @@ export function Terminal({ username, machine }: TerminalProps) {
 
 
   return (
-    <div onClick={handleFocus} className="w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 bg-neutral-900 text-green-400 rounded-lg overflow-hidden shadow-2xl border border-gray-700 cursor-text">
+    <div onClick={handleFocus} className={clsx("bg-neutral-900 text-green-400 rounded-lg overflow-hidden shadow-2xl border border-gray-700", maximized ? "fixed inset-0 w-full h-full" : "w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 h-[440px]")}>
       <div className="bg-[#2d2d2d] px-4 py-2 flex items-center justify-between border-b border-gray-700">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 cursor-pointer">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow-500" onClick={() => setMaximized(!maximized)}></div>
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
         </div>
         <div className="text-xs text-gray-400 font-mono whitespace-nowrap">{t("terminal.terminalAt")}{machine}</div>
@@ -166,7 +168,7 @@ export function Terminal({ username, machine }: TerminalProps) {
 
       <div
         ref={terminalRef}
-        className="h-[440px] overflow-y-auto p-4 font-mono text-sm"
+        className="h-[440px] overflow-y-auto p-4 font-mono text-sm cursor-text"
         style={{ fontFamily: "var(--font-geist-mono)" }}
       >
         {!showWelcomeMessage && (
