@@ -121,7 +121,7 @@ export const listDirectory = (path: string, cmd?: string): string => {
   }
 
   const items = Object.values(node.children)
-    .map((item) => ((cmd === 'ls -l' ? `${item.createdAt} ` : '') + (item.type === "directory" ? `${item.name}/` : item.name)))
+    .map((item) => ((cmd?.startsWith('ls -l') ? `${item.createdAt} ` : '') + (item.type === "directory" ? `${item.name}/` : item.name)))
     .sort((a, b) => {
       const aIsDir = a.endsWith("/");
       const bIsDir = b.endsWith("/");
@@ -130,7 +130,7 @@ export const listDirectory = (path: string, cmd?: string): string => {
       return a.localeCompare(b);
     });
 
-  return items.join(cmd === 'ls -l' ? '\n' : '  ');
+  return items.join(cmd?.startsWith('ls -l') ? '\n' : '  ');
 };
 
 export const getFileContent = (path: string): string => {
@@ -162,9 +162,6 @@ export const executeCommand = (cmd: string, currentDirectory: string, setCurrent
   else if (trimmedCmd === "clear") {
     result = "";
   }
-  else if (trimmedCmd.startsWith("ls")) {
-    result = listDirectory(currentDirectory, cmd);
-  }
   else if (trimmedCmd === "pwd") {
     result = currentDirectory;
   }
@@ -179,10 +176,14 @@ export const executeCommand = (cmd: string, currentDirectory: string, setCurrent
   else if (trimmedCmd === "uname") {
     result = `Linux game 6.12.57+deb13-amd64 #1 SMP PREEMPT x86_64 GNU/Linux`;
   }
-  else if (trimmedCmd.startsWith("ls ")) {
-    const targetPath = trimmedCmd.substring(3).trim();
-    const normalizedPath = normalizePath(targetPath, currentDirectory);
-    result = listDirectory(normalizedPath);
+  else if (trimmedCmd.startsWith("ls")) {
+    if(trimmedCmd === "ls" || trimmedCmd === "ls -l" || trimmedCmd === "ls -l ." || trimmedCmd === "ls .") {
+      result = listDirectory(currentDirectory, trimmedCmd);
+    } else {
+      const targetPath = trimmedCmd.split(" ")[trimmedCmd.split(" ").length - 1]?.trim() ?? "";
+      const normalizedPath = normalizePath(targetPath, currentDirectory);
+      result = listDirectory(normalizedPath, trimmedCmd);
+    }
   }
   else if (trimmedCmd.startsWith("echo ")) {
     result = cmd.substring(5).trim() || "";
