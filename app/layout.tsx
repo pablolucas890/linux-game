@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { I18nWrapper } from "./components/i18n-wrapper";
 import "./globals.css";
+import { defaultLocale } from "./locales";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="pt-BR">
+    <html lang={defaultLocale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-900 text-white`}>
         <I18nWrapper>
           {children}

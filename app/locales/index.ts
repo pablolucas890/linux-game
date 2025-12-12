@@ -25,7 +25,7 @@ export const locales: Record<string, LocaleInfo> = {
 
 export type Locale = keyof typeof locales;
 
-export const defaultLocale: Locale = "pt-BR";
+export const defaultLocale: Locale = "en";
 
 export const getAvailableLocales = (): Locale[] => {
   return Object.keys(locales) as Locale[];
