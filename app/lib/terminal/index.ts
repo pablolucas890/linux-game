@@ -157,18 +157,7 @@ export const executeCommand = (cmd: string, currentDirectory: string, setCurrent
   if (!trimmedCmd) return "";
 
   if (trimmedCmd === "help") {
-    result = `${t("commands.help.title")}
-${t("commands.help.help")}
-${t("commands.help.clear")}
-${t("commands.help.ls")}
-${t("commands.help.pwd")}
-${t("commands.help.whoami")}
-${t("commands.help.date")}
-${t("commands.help.echo")}
-${t("commands.help.uname")}
-${t("commands.help.cd")}
-${t("commands.help.cat")}
-`;
+    result = commands.map((command) => t(`commands.help.${command}`)).join("\n");
   }
   else if (trimmedCmd === "clear") {
     result = "";
@@ -234,3 +223,5 @@ ${t("commands.help.cat")}
   }
   return result;
 };
+
+export const commands = ['help', 'clear', 'ls', 'pwd', 'whoami', 'date', 'echo', 'uname', 'cd', 'cat'];

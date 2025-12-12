@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "../contexts/i18n";
-import { executeCommand, setTranslationFunction } from "../lib/terminal";
+import { commands, executeCommand, setTranslationFunction } from "../lib/terminal";
 import { CommandHistory } from "../types/props";
 
 interface TerminalProps {
@@ -67,6 +67,7 @@ export function Terminal({ username, machine }: TerminalProps) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Tab
     if (e.key === "Tab") {
       const ls = executeCommand("ls", currentDirectory, setCurrentDirectory);
       const inputValue = (e.target as HTMLInputElement).value;
@@ -74,16 +75,27 @@ export function Terminal({ username, machine }: TerminalProps) {
       const firstPartOfInputValue = inputValueArray.slice(0, -1).join(" ");
       const lastPartOfInputValue = inputValueArray.slice(-1).join(" ");
       const lsArray = ls.split(" ");
-      for (const item of lsArray) {
-        if (item.startsWith(lastPartOfInputValue)) {
-          (e.target as HTMLInputElement).value = `${firstPartOfInputValue} ${item}`;
-          setCurrentCommand(`${firstPartOfInputValue} ${item}`);
-          break;
+      if (!firstPartOfInputValue) {
+        const cmd = commands.find((cmd) => cmd.startsWith(lastPartOfInputValue));
+        if(cmd) {
+          (e.target as HTMLInputElement).value = `${cmd}`;
+          setCurrentCommand(`${cmd}`);
+          e.preventDefault();
+          return;
+        }
+      } else {
+        for (const item of lsArray) {
+          if (item.startsWith(lastPartOfInputValue)) {
+            (e.target as HTMLInputElement).value = `${firstPartOfInputValue} ${item}`;
+            setCurrentCommand(`${firstPartOfInputValue} ${item}`);
+            break;
+          }
         }
       }
       e.preventDefault();
       return;
     }
+
     // Ctrl + C
     if (e.ctrlKey && e.key === "c") {
       setCommandHistory((prev) => [
@@ -99,7 +111,7 @@ export function Terminal({ username, machine }: TerminalProps) {
       e.preventDefault();
       return;
     }
-    
+
     if (e.key === "ArrowUp") {
       e.preventDefault();
       if (commandHistory.length > 0) {
@@ -139,7 +151,7 @@ export function Terminal({ username, machine }: TerminalProps) {
     return path;
   };
 
-  
+
   return (
     <div onClick={handleFocus} className="w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 bg-neutral-900 text-green-400 rounded-lg overflow-hidden shadow-2xl border border-gray-700 cursor-text">
       <div className="bg-[#2d2d2d] px-4 py-2 flex items-center justify-between border-b border-gray-700">
