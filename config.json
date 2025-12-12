@@ -1,0 +1,18 @@
+{
+  "links": {
+    "github": {
+      "repository": "https://github.com/pablolucas890/linux-game",
+      "profile": "https://github.com/pablolucas890",
+      "issues": "https://github.com/pablolucas890/linux-game/issues",
+      "contributing": "https://github.com/pablolucas890/linux-game#-contributing",
+      "authors": "https://github.com/pablolucas890/linux-game/blob/main/authors.md",
+      "license": "https://github.com/pablolucas890/linux-game/blob/main/LICENSE"
+    },
+    "demo": "https://linux-game-production.up.railway.app/",
+    "author": {
+      "name": "Pablo Lucas Silva Santos - P89L0",
+      "github": "https://github.com/pablolucas890",
+      "website": "https://pablo.ct.ws"
+    }
+  }
+}

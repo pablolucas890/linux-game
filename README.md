@@ -18,6 +18,8 @@ The project is not yet complete, but you can already test the terminal and try o
 
 Try the game online: **[https://linux-game-production.up.railway.app/](https://linux-game-production.up.railway.app/)**
 
+> **Note**: Project links are centralized in [`config.json`](./config.json). Update that file to change links across the project.
+
 ## 🚀 How to Run
 
 ### Prerequisites
@@ -61,6 +63,10 @@ Contributions with new translations are very welcome! To add a new language:
 3. Add the new language in `app/locales/index.ts`
 
 The system will automatically detect the new language and it will appear in the language selector!
+
+## 👥 Authors
+
+See [AUTHORS.md](./authors.md) for a list of contributors to this project.
 
 ## 🤝 Contributing
 
@@ -114,7 +120,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Found a bug? Have a suggestion? Want to contribute?
 
-- Open an [Issue](../../issues) on GitHub
+- Open an [Issue](https://github.com/pablolucas890/linux-game/issues) on GitHub
 - Send a Pull Request with your improvements
 
 ---
