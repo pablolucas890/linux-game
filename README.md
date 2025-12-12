@@ -14,6 +14,10 @@ An interactive Linux terminal game built with Next.js and React. This project ai
 
 The project is not yet complete, but you can already test the terminal and try out the available commands. Your help is very welcome!
 
+## 🌐 Live Demo
+
+Try the game online: **[https://linux-game-production.up.railway.app/](https://linux-game-production.up.railway.app/)**
+
 ## 🚀 How to Run
 
 ### Prerequisites
@@ -41,33 +45,19 @@ npm run dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## 🎮 Available Commands
-
-- `help` - Shows the list of available commands
-- `ls` - Lists files and directories
-- `cd` - Changes the current directory
-- `pwd` - Shows the current directory
-- `cat` - Shows the content of a file
-- `whoami` - Shows the current user
-- `date` - Shows the current date and time
-- `echo` - Repeats the typed text
-- `uname` - Shows system information
-- `clear` - Clears the terminal
-- `grep` - Filters content (used with pipe: `ls | grep pattern`)
-
 ## 🌍 Translation
 
 The project has full support for multiple languages. Currently available in:
 
-- 🇧🇷 Portuguese (Brazil)
 - 🇺🇸 English
+- 🇧🇷 Portuguese (Brazil)
 
 ### Contributing with Translations
 
 Contributions with new translations are very welcome! To add a new language:
 
 1. Create a `{language-code}.json` file in `app/locales/` (e.g., `es.json` for Spanish)
-2. Copy the structure from an existing file and translate all values
+2. Copy the structure from an existing file and translate all values (`en.json` are the default language to copy)
 3. Add the new language in `app/locales/index.ts`
 
 The system will automatically detect the new language and it will appear in the language selector!
