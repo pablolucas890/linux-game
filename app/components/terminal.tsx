@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "../contexts/i18n";
+import { executeCommand, setTranslationFunction } from "../lib/terminal";
 import { CommandHistory } from "../types/props";
-import { executeCommand, setTranslationFunction } from "../utils/functions";
 
 interface TerminalProps {
   username: string;
