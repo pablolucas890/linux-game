@@ -1,5 +1,5 @@
 import fileSystemData from "../../../data/filesystem.json";
-import type { Locale } from "../../locales";
+import { defaultLocale, type Locale } from "../../locales";
 import ptBR from "../../locales/pt-BR.json";
 import { FileSystemNode } from "../../types/props";
 
@@ -7,7 +7,7 @@ const fileSystem: FileSystemNode = fileSystemData as unknown as FileSystemNode;
 
 // Helper function to get translations (will be injected)
 let getTranslation: ((key: string, params?: Record<string, string>) => string) | null = null;
-let currentLocale: Locale = "pt-BR";
+let currentLocale: Locale = defaultLocale;
 
 export const setTranslationFunction = (t: (key: string, params?: Record<string, string>) => string, locale: Locale) => {
   getTranslation = t;
@@ -170,7 +170,7 @@ export const executeCommand = (cmd: string, currentDirectory: string, setCurrent
   }
   else if (trimmedCmd === "date") {
     // Use locale based on current translation
-    const localeString = currentLocale === "en" ? "en-US" : currentLocale;
+    const localeString = currentLocale === "pt-BR" ? "pt-BR" : "en-US";
     result = new Date().toLocaleString(localeString);
   }
   else if (trimmedCmd === "uname") {
