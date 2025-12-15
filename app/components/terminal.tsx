@@ -211,8 +211,8 @@ export function Terminal({ username, machine }: TerminalProps) {
 
 
   return (
-    <div onClick={handleFocus} className={clsx("bg-neutral-900 text-green-400 rounded-lg overflow-hidden shadow-2xl border border-gray-700", maximized ? "fixed inset-0 w-full h-full" : "w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 h-[440px]")}>
-      <div className="bg-[#2d2d2d] px-4 py-2 flex items-center justify-between border-b border-gray-700">
+    <div onClick={handleFocus} className={clsx("bg-neutral-900 text-green-400 rounded-lg overflow-hidden shadow-2xl border border-gray-700 flex flex-col", maximized ? "fixed inset-0 w-full h-full" : "w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 h-[480px]")}>
+      <div className="bg-neutral-800 px-4 py-2 flex items-center justify-between border-b border-gray-700 shrink-0">
         <div className="flex items-center gap-2 cursor-pointer">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500" onClick={() => setMaximized(!maximized)}></div>
@@ -224,7 +224,7 @@ export function Terminal({ username, machine }: TerminalProps) {
 
       <div
         ref={terminalRef}
-        className="h-[440px] overflow-y-auto p-4 font-mono text-sm cursor-text"
+        className="flex-1 min-h-0 overflow-y-auto p-4 font-mono text-sm cursor-text"
         style={{ fontFamily: "var(--font-geist-mono)" }}
       >
         {!showWelcomeMessage && (

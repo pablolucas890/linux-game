@@ -12,7 +12,7 @@ export function Welcome() {
   const descriptionLines = description.split("\n");
 
   return (
-    <div className="w-full h-screen p-4 flex flex-col items-center justify-center gap-4">
+    <div className="w-full h-screen p-4 flex flex-col items-center gap-4">
       <div className="flex flex-col items-center justify-center max-w-xl text-justify">
         <h1 className="text-2xl font-bold mb-4">{t("screens.welcome.title")}</h1>
         {descriptionLines.map((line, index) => (
