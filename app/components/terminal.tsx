@@ -69,51 +69,103 @@ export function Terminal({ username, machine }: TerminalProps) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
+    const setCommandHistoryItem = (command: string, output: string) => {
+      setCommandHistory((prev) => [
+        ...prev,
+        {
+          command,
+          output,
+          timestamp: new Date(),
+          directory: currentDirectory,
+        },
+      ]);
+    }
+
     // Tab
     if (e.key === "Tab") {
-      const ls = executeCommand("ls", currentDirectory, setCurrentDirectory);
+
+      const filterItemsAndSetCommand = (lsArray: string[], keyToFilter: string, lastPartSliced?: string) => {
+        const items = lsArray.filter((item) => item.startsWith(keyToFilter));
+        if (items.length === 0) {
+          return;
+        }
+        if (items.length > 1) {
+          setCommandHistoryItem(`${firstPartOfInputValue} ${lastPartOfInputValue}`, items.join(' '));
+          return;
+        }
+        (e.target as HTMLInputElement).value = `${firstPartOfInputValue} ${lastPartSliced ? lastPartSliced : ''}${items[0]}`;
+        setCurrentCommand(`${firstPartOfInputValue} ${lastPartSliced ? lastPartSliced : ''}${items[0]}`);
+        return;
+      }
+
+      e.preventDefault();
       const inputValue = (e.target as HTMLInputElement).value;
-      const inputValueArray = inputValue.split(" ");
-      const firstPartOfInputValue = inputValueArray.slice(0, -1).join(" ");
-      const lastPartOfInputValue = inputValueArray.slice(-1).join(" ");
-      const lsArray = ls.split(" ");
+      const firstPartOfInputValue = inputValue.split(" ").slice(0, -1).join(" ");
+      const lastPartOfInputValue = inputValue.split(" ").slice(-1).join(" ");
+
       if (!firstPartOfInputValue) {
+        // Complete by commands available
         const cmd = commands.find((cmd) => cmd.startsWith(lastPartOfInputValue));
-        if(cmd) {
+        if (cmd) {
           (e.target as HTMLInputElement).value = `${cmd}`;
           setCurrentCommand(`${cmd}`);
           e.preventDefault();
           return;
         }
       } else {
-        for (const item of lsArray) {
-          if (item.startsWith(lastPartOfInputValue)) {
-            (e.target as HTMLInputElement).value = `${firstPartOfInputValue} ${item}`;
-            setCurrentCommand(`${firstPartOfInputValue} ${item}`);
-            break;
-          }
+        // Complete by directory available
+        const lastPartSliced =
+          lastPartOfInputValue.includes('/')
+            ? lastPartOfInputValue.endsWith('/')
+              ? lastPartOfInputValue
+              : lastPartOfInputValue.split('/').slice(0, -1).join('/') + '/'
+            : lastPartOfInputValue;
+        const directoryToList =
+          lastPartSliced.includes('/')
+            ? lastPartSliced.startsWith('/')
+              ? lastPartSliced
+              : `${currentDirectory}/${lastPartSliced}`
+            : currentDirectory;
+
+        const lsOutput = executeCommand("ls", directoryToList, setCurrentDirectory);
+        const lsArray = lsOutput.split(" ");
+
+        // User didn't typed anything after the command, just listing the directory
+        if (lastPartOfInputValue === '') {
+          setCommandHistoryItem(`${firstPartOfInputValue} ${lastPartOfInputValue}`, lsOutput);
+          e.preventDefault();
+          return;
         }
+
+        // User typed a path with a directory
+        if (lastPartSliced.endsWith('/')) {
+          const end = lastPartOfInputValue.split('/').slice(-1).join('/')
+          if (end === '') {
+            // The last directory that user typed ends with a slash
+            setCommandHistoryItem(`${firstPartOfInputValue} ${lastPartOfInputValue}`, lsOutput);
+            return;
+          }
+          // The last directory that user typed doesn't end with a slash
+          filterItemsAndSetCommand(lsArray, end, lastPartSliced);
+          return;
+        }
+
+        // User typed a path without a directory
+        filterItemsAndSetCommand(lsArray, lastPartOfInputValue);
       }
-      e.preventDefault();
       return;
     }
 
     // Ctrl + C
     if (e.ctrlKey && e.key === "c") {
-      setCommandHistory((prev) => [
-        ...prev,
-        {
-          command: currentCommand + "^C",
-          output: "",
-          timestamp: new Date(),
-          directory: currentDirectory,
-        },
-      ]);
-      setCurrentCommand('');
       e.preventDefault();
+      setCommandHistoryItem(currentCommand + "^C", "");
+      setCurrentCommand('');
       return;
     }
 
+    // Arrow Up
     if (e.key === "ArrowUp") {
       e.preventDefault();
       if (commandHistory.length > 0) {
@@ -123,8 +175,11 @@ export function Terminal({ username, machine }: TerminalProps) {
         setCommandIndex(newIndex);
         setCurrentCommand(commandHistory[newIndex].command);
       }
-    } else if (e.key === "ArrowDown") {
-      e.preventDefault();
+      return;
+    }
+
+    // Arrow Down
+    if (e.key === "ArrowDown") {
       if (commandIndex !== -1) {
         const newIndex = commandIndex + 1;
         if (newIndex >= commandHistory.length) {
@@ -135,6 +190,7 @@ export function Terminal({ username, machine }: TerminalProps) {
           setCurrentCommand(commandHistory[newIndex].command);
         }
       }
+      return;
     }
   };
 
