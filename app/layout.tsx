@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { I18nWrapper } from "../src/components/i18n-wrapper";
-import { defaultLocale } from "../src/locales";
+import { defaultLocale, locales } from "../src/locales";
 import "../src/styles/globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], });
 
 export const metadata: Metadata = {
   title: "Linux Game",
-  description: "Linux Game - Teste seu conhecimento sobre Linux e aproveite para aprender mais sobre o sistema operacional.",
+  description: locales[defaultLocale].translations.metadata.description as string,
 };
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
