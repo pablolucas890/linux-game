@@ -1,6 +1,6 @@
 export interface FileSystemNode {
   createdAt: string;
-  type: "directory" | "file";
+  type: 'directory' | 'file';
   name: string;
   content?: string;
   children?: { [key: string]: FileSystemNode };

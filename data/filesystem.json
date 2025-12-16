@@ -18,9 +18,24 @@
               "name": "documents",
               "createdAt": "2024-12-01 10:00:00",
               "children": {
-                "file1.txt": { "createdAt": "2025-01-01 10:00:00", "type": "file", "name": "file1.txt", "content": "This is the content of file 1.\nIt contains a line of text.\nAnd another line of text." },
-                "file2.txt": { "createdAt": "2025-01-02 10:00:00", "type": "file", "name": "file2.txt", "content": "This is the content of file 2." },
-                "report.pdf": { "createdAt": "2025-01-03 10:00:00", "type": "file", "name": "report.pdf", "content": "'Ar!r54n[ϲ[c9˽n=g_o͊sm7<iиfƧebM}i>Um}9%AA|Ď_/HZ0w=q wcx7>WVilz@ujFy~     1M</@|Uݨok" }
+                "file1.txt": {
+                  "createdAt": "2025-01-01 10:00:00",
+                  "type": "file",
+                  "name": "file1.txt",
+                  "content": "This is the content of file 1.\nIt contains a line of text.\nAnd another line of text."
+                },
+                "file2.txt": {
+                  "createdAt": "2025-01-02 10:00:00",
+                  "type": "file",
+                  "name": "file2.txt",
+                  "content": "This is the content of file 2."
+                },
+                "report.pdf": {
+                  "createdAt": "2025-01-03 10:00:00",
+                  "type": "file",
+                  "name": "report.pdf",
+                  "content": "'Ar!r54n[ϲ[c9˽n=g_o͊sm7<iиfƧebM}i>Um}9%AA|Ď_/HZ0w=q wcx7>WVilz@ujFy~     1M</@|Uݨok"
+                }
               }
             },
             "downloads": {
@@ -28,8 +43,18 @@
               "name": "downloads",
               "createdAt": "2024-12-05 14:00:00",
               "children": {
-                "image.png": { "createdAt": "2024-12-10 09:00:00", "type": "file", "name": "image.png", "content": "'Ar!r54n[ϲ[c9˽n=g_o͊sm7<iиfƧebM}i>Um}9%AA|Ď_/HZ0w=q wcx7>WVilz@ujFy~     1M</@|Uݨok" },
-                "video.mp4": { "createdAt": "2024-12-11 15:30:00", "type": "file", "name": "video.mp4", "content": "'Ar!r54n[ϲ[c9˽n=g_o͊sm7<iиfƧebM}i>Um}9%AA|Ď_/HZ0w=q wcx7>WVilz@ujFy~     1M</@|Uݨok" }
+                "image.png": {
+                  "createdAt": "2024-12-10 09:00:00",
+                  "type": "file",
+                  "name": "image.png",
+                  "content": "'Ar!r54n[ϲ[c9˽n=g_o͊sm7<iиfƧebM}i>Um}9%AA|Ď_/HZ0w=q wcx7>WVilz@ujFy~     1M</@|Uݨok"
+                },
+                "video.mp4": {
+                  "createdAt": "2024-12-11 15:30:00",
+                  "type": "file",
+                  "name": "video.mp4",
+                  "content": "'Ar!r54n[ϲ[c9˽n=g_o͊sm7<iиfƧebM}i>Um}9%AA|Ď_/HZ0w=q wcx7>WVilz@ujFy~     1M</@|Uݨok"
+                }
               }
             },
             "projects": {
@@ -42,13 +67,23 @@
                   "name": "project1",
                   "createdAt": "2024-11-05 10:00:00",
                   "children": {
-                    "README.md": { "createdAt": "2024-11-05 10:05:00", "type": "file", "name": "README.md", "content": "# Hello world" },
+                    "README.md": {
+                      "createdAt": "2024-11-05 10:05:00",
+                      "type": "file",
+                      "name": "README.md",
+                      "content": "# Hello world"
+                    },
                     "src": {
                       "type": "directory",
                       "name": "src",
                       "createdAt": "2024-11-05 10:10:00",
                       "children": {
-                        "main.js": { "createdAt": "2024-11-05 10:15:00", "type": "file", "name": "main.js", "content": "console.log('Hello world');" }
+                        "main.js": {
+                          "createdAt": "2024-11-05 10:15:00",
+                          "type": "file",
+                          "name": "main.js",
+                          "content": "console.log('Hello world');"
+                        }
                       }
                     }
                   }
@@ -58,13 +93,28 @@
                   "name": "project2",
                   "createdAt": "2024-11-10 14:00:00",
                   "children": {
-                    "config.json": { "createdAt": "2024-11-10 14:05:00", "type": "file", "name": "config.json", "content": "{'name': 'project2'}" }
+                    "config.json": {
+                      "createdAt": "2024-11-10 14:05:00",
+                      "type": "file",
+                      "name": "config.json",
+                      "content": "{'name': 'project2'}"
+                    }
                   }
                 }
               }
             },
-            "file.txt": { "createdAt": "2024-12-15 11:00:00", "type": "file", "name": "file.txt", "content": "This is the content of the file." },
-            "notes.md": { "createdAt": "2024-12-20 16:00:00", "type": "file", "name": "notes.md", "content": "# Notes\n\n- Note 1\n- Note 2\n- Note 3" }
+            "file.txt": {
+              "createdAt": "2024-12-15 11:00:00",
+              "type": "file",
+              "name": "file.txt",
+              "content": "This is the content of the file."
+            },
+            "notes.md": {
+              "createdAt": "2024-12-20 16:00:00",
+              "type": "file",
+              "name": "notes.md",
+              "content": "# Notes\n\n- Note 1\n- Note 2\n- Note 3"
+            }
           }
         }
       }
@@ -74,7 +124,12 @@
       "name": "etc",
       "createdAt": "2020-01-01 00:00:00",
       "children": {
-        "config.conf": { "createdAt": "2020-01-01 00:05:00", "type": "file", "name": "config.conf", "content": "{'name': 'config'}" }
+        "config.conf": {
+          "createdAt": "2020-01-01 00:05:00",
+          "type": "file",
+          "name": "config.conf",
+          "content": "{'name': 'config'}"
+        }
       }
     },
     "var": {
@@ -87,7 +142,12 @@
           "name": "log",
           "createdAt": "2020-01-01 00:00:00",
           "children": {
-            "system.log": { "createdAt": "2024-12-25 12:00:00", "type": "file", "name": "system.log", "content": "This is the content of the system log." }
+            "system.log": {
+              "createdAt": "2024-12-25 12:00:00",
+              "type": "file",
+              "name": "system.log",
+              "content": "This is the content of the system log."
+            }
           }
         }
       }

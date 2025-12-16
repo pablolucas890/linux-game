@@ -30,17 +30,20 @@ Try the game online: **[https://linux-game-production.up.railway.app/](https://l
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd linux-game
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Run the development server:
+
 ```bash
 npm run dev
 ```
