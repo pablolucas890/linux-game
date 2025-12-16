@@ -5,7 +5,7 @@ interface PublicRoute {
   proxy?: string
 }
 
-const publicRoutes = [
+const publicRoutes : PublicRoute[] = [
   { path: '/welcome' },
   { path: '/register', proxy: '/dashboard' },
   { path: '/one', proxy: '/dashboard' },

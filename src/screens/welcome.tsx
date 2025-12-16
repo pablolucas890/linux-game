@@ -1,6 +1,6 @@
 "use client";
 
-import config from "../../config.json";
+import config from "../../upstream.json";
 import Button from "../components/button";
 import { Terminal } from "../components/terminal";
 import { useI18n } from "../contexts/i18n";

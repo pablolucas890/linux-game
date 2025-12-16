@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { I18nWrapper } from "../src/components/i18n-wrapper";
-import { defaultLocale, locales } from "../src/locales";
-import "../src/styles/globals.css";
+import { I18nWrapper } from "../components/i18n-wrapper";
+import { defaultLocale, locales } from "../locales";
+import "../styles/globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], });

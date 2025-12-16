@@ -1,4 +1,4 @@
-import fileSystemData from "../../../data/filesystem.json";
+import fileSystemData from "../../data/filesystem.json";
 import { defaultLocale, type Locale } from "../../locales";
 import ptBR from "../../locales/pt-BR.json";
 import { FileSystemNode } from "../../types/props";
