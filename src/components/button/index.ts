@@ -1,4 +1,4 @@
-import { One } from "./one";
+import { One } from './one';
 
 const Button = {
   One,

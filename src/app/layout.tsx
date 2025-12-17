@@ -12,13 +12,11 @@ export const metadata: Metadata = {
   description: locales[defaultLocale].translations.metadata.description as string,
 };
 
-export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang={defaultLocale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-900 text-white`}>
-        <I18nWrapper>
-          {children}
-        </I18nWrapper>
+        <I18nWrapper>{children}</I18nWrapper>
       </body>
     </html>
   );

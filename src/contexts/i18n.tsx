@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import type { LocaleInfo } from "../locales";
-import { defaultLocale, getAvailableLocales, locales, type Locale } from "../locales";
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import type { LocaleInfo } from '../locales';
+import { defaultLocale, getAvailableLocales, locales, type Locale } from '../locales';
 
 interface I18nContextType {
   locale: Locale;
@@ -13,18 +13,18 @@ interface I18nContextType {
 }
 
 function getNestedValueInObject(obj: Record<string, unknown>, path: string): string | null {
-  const keys = path.split(".");
+  const keys = path.split('.');
   let current: unknown = obj;
-  
+
   for (const key of keys) {
-    if (current && typeof current === "object" && key in current) {
+    if (current && typeof current === 'object' && key in current) {
       current = (current as Record<string, unknown>)[key];
     } else {
       return null;
     }
   }
-  
-  return typeof current === "string" ? current : null;
+
+  return typeof current === 'string' ? current : null;
 }
 
 function getNestedValue(obj: Record<string, unknown>, path: string): string {
@@ -33,7 +33,7 @@ function getNestedValue(obj: Record<string, unknown>, path: string): string {
   if (value !== null) {
     return value;
   }
-  
+
   // If not found, try to get from English as fallback
   if (locales.en) {
     const enTranslations = locales.en.translations as Record<string, unknown>;
@@ -42,30 +42,27 @@ function getNestedValue(obj: Record<string, unknown>, path: string): string {
       return enValue;
     }
   }
-  
+
   // If still not found, return the path itself
   return path;
 }
 
 function replaceParams(text: string, params?: Record<string, string>): string {
   if (!params) return text;
-  return Object.entries(params).reduce(
-    (acc, [key, value]) => acc.replace(`{${key}}`, value),
-    text
-  );
+  return Object.entries(params).reduce((acc, [key, value]) => acc.replace(`{${key}}`, value), text);
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const availableLocales = getAvailableLocales();
-  
+
   // Always start with defaultLocale to avoid hydration mismatch
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedLocale = localStorage.getItem("locale") as Locale;
+    if (typeof window !== 'undefined') {
+      const savedLocale = localStorage.getItem('locale') as Locale;
       if (savedLocale && availableLocales.includes(savedLocale)) {
         setLocaleState(savedLocale); // eslint-disable-line react-hooks/set-state-in-effect
         const localeInfo = locales[savedLocale];
@@ -83,8 +80,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       return;
     }
     setLocaleState(newLocale);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("locale", newLocale);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('locale', newLocale);
       const localeInfo = locales[newLocale];
       document.documentElement.lang = localeInfo.code;
     }
@@ -108,7 +105,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 export function useI18n() {
   const context = useContext(I18nContext);
   if (context === undefined) {
-    throw new Error("useI18n must be used within an I18nProvider");
+    throw new Error('useI18n must be used within an I18nProvider');
   }
   return context;
 }
