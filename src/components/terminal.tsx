@@ -3,14 +3,15 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { useI18n } from '../contexts/i18n';
-import { commands, executeCommand, setTranslationFunction } from '../lib/terminal';
+import { executeCommand, getCommandsByLevel, setTranslationFunction } from '../lib/terminal';
 import { CommandHistory } from '../types/props';
 
 interface TerminalProps {
   username: string;
   machine: string;
+  level: number;
 }
-export function Terminal({ username, machine }: TerminalProps) {
+export function Terminal({ username, machine, level }: TerminalProps) {
   const { t } = useI18n();
   const [commandHistory, setCommandHistory] = useState<CommandHistory[]>([]);
   const [currentCommand, setCurrentCommand] = useState('');
@@ -49,7 +50,7 @@ export function Terminal({ username, machine }: TerminalProps) {
       setCommandHistory([]);
     }
 
-    const output = executeCommand(currentCommand, currentDirectory, setCurrentDirectory);
+    const output = executeCommand(currentCommand, currentDirectory, setCurrentDirectory, level);
 
     if (currentCommand.trim() !== 'clear') {
       setCommandHistory(prev => [
@@ -104,7 +105,7 @@ export function Terminal({ username, machine }: TerminalProps) {
 
       if (!firstPartOfInputValue) {
         // Complete by commands available
-        const cmd = commands.find(cmd => cmd.startsWith(lastPartOfInputValue));
+        const cmd = getCommandsByLevel(level).find(cmd => cmd.startsWith(lastPartOfInputValue));
         if (cmd) {
           (e.target as HTMLInputElement).value = `${cmd}`;
           setCurrentCommand(`${cmd}`);
@@ -124,7 +125,7 @@ export function Terminal({ username, machine }: TerminalProps) {
             : `${currentDirectory}/${lastPartSliced}`
           : currentDirectory;
 
-        const lsOutput = executeCommand('ls', directoryToList, setCurrentDirectory);
+        const lsOutput = executeCommand('ls', directoryToList, setCurrentDirectory, level);
         const lsArray = lsOutput.split(' ');
 
         // User didn't typed anything after the command, just listing the directory

@@ -1,9 +1,7 @@
-import fileSystemData from '../../data/filesystem.json';
+import levelOneFileSystem from '../../data/filesystems/levelOne.json';
 import { defaultLocale, type Locale } from '../../locales';
 import ptBR from '../../locales/pt-BR.json';
 import { FileSystemNode } from '../../types/props';
-
-const fileSystem: FileSystemNode = fileSystemData as unknown as FileSystemNode;
 
 // Helper function to get translations (will be injected)
 let getTranslation: ((key: string, params?: Record<string, string>) => string) | null = null;
@@ -43,7 +41,7 @@ const t = (key: string, params?: Record<string, string>): string => {
   return getTranslation(key, params);
 };
 
-export const normalizePath = (path: string, currentDir: string): string => {
+const normalizePath = (path: string, currentDir: string): string => {
   if (path.startsWith('~')) {
     path = '/home/user' + path.slice(1);
   }
@@ -68,7 +66,8 @@ export const normalizePath = (path: string, currentDir: string): string => {
   return '/' + resolved.join('/');
 };
 
-export const getNodeByPath = (path: string): FileSystemNode | null => {
+const getNodeByPath = (path: string, level: number): FileSystemNode | null => {
+  const fileSystem: FileSystemNode = getFileSystemDataByLevel(level);
   const normalizedPath = normalizePath(path, '/');
   const parts = normalizedPath.split('/').filter(p => p !== '');
 
@@ -88,8 +87,8 @@ export const getNodeByPath = (path: string): FileSystemNode | null => {
   return currentNode || null;
 };
 
-export const isValidDirectory = (path: string): { valid: boolean; error?: string } => {
-  const node = getNodeByPath(path);
+const isValidDirectory = (path: string, level: number): { valid: boolean; error?: string } => {
+  const node = getNodeByPath(path, level);
 
   if (!node) {
     return { valid: false, error: t('commands.errors.cdNotFound', { path }) };
@@ -102,8 +101,8 @@ export const isValidDirectory = (path: string): { valid: boolean; error?: string
   return { valid: true };
 };
 
-export const listDirectory = (path: string, cmd?: string): string => {
-  const node = getNodeByPath(path);
+const listDirectory = (path: string, cmd: string, level: number): string => {
+  const node = getNodeByPath(path, level);
 
   if (!node) {
     return t('commands.errors.lsNotFound', { path });
@@ -120,7 +119,7 @@ export const listDirectory = (path: string, cmd?: string): string => {
   const items = Object.values(node.children)
     .map(
       item =>
-        (cmd?.startsWith('ls -l') ? `${item.createdAt} ` : '') +
+        (cmd.startsWith('ls -l') ? `${item.createdAt} ` : '') +
         (item.type === 'directory' ? `${item.name}/` : item.name),
     )
     .sort((a, b) => {
@@ -131,11 +130,11 @@ export const listDirectory = (path: string, cmd?: string): string => {
       return a.localeCompare(b);
     });
 
-  return items.join(cmd?.startsWith('ls -l') ? '\n' : '  ');
+  return items.join(cmd.startsWith('ls -l') ? '\n' : '  ');
 };
 
-export const getFileContent = (path: string): string => {
-  const node = getNodeByPath(path);
+const getFileContent = (path: string, level: number): string => {
+  const node = getNodeByPath(path, level);
   if (!node) {
     return t('commands.errors.catNotFound', { path });
   }
@@ -145,17 +144,36 @@ export const getFileContent = (path: string): string => {
   return (node as FileSystemNode & { content: string }).content || '';
 };
 
-export const grepResult = (content: string, pattern: string): string => {
+const grepResult = (content: string, pattern: string): string => {
   return content
     .split('\n')
     .filter(line => line.toLowerCase().includes(pattern.toLowerCase()))
     .join('\n');
 };
 
+const getFileSystemDataByLevel = (level: number): FileSystemNode => {
+  switch (level) {
+    case 1:
+      return levelOneFileSystem as unknown as FileSystemNode;
+    default:
+      return levelOneFileSystem as unknown as FileSystemNode;
+  }
+};
+
+export const getCommandsByLevel = (level: number): string[] => {
+  switch (level) {
+    case 1:
+      return ['help', 'clear', 'ls', 'pwd', 'whoami', 'date', 'echo', 'uname', 'cd', 'cat'];
+    default:
+      return ['help', 'clear', 'ls', 'pwd', 'whoami', 'date', 'echo', 'uname', 'cd', 'cat'];
+  }
+};
+
 export const executeCommand = (
   cmd: string,
   currentDirectory: string,
   setCurrentDirectory: (directory: string) => void,
+  level: number,
 ): string => {
   const generalCmd = cmd.trim().toLowerCase();
   const commandHasGrep = generalCmd.includes(' | grep ');
@@ -165,7 +183,9 @@ export const executeCommand = (
   if (!trimmedCmd) return '';
 
   if (trimmedCmd === 'help') {
-    result = commands.map(command => t(`commands.help.${command}`)).join('\n');
+    result = getCommandsByLevel(level)
+      .map(command => t(`commands.help.${command}`))
+      .join('\n');
   } else if (trimmedCmd === 'clear') {
     result = '';
   } else if (trimmedCmd === 'pwd') {
@@ -180,11 +200,11 @@ export const executeCommand = (
     result = `Linux game 6.12.57+deb13-amd64 #1 SMP PREEMPT x86_64 GNU/Linux`;
   } else if (trimmedCmd.startsWith('ls')) {
     if (trimmedCmd === 'ls' || trimmedCmd === 'ls -l' || trimmedCmd === 'ls -l .' || trimmedCmd === 'ls .') {
-      result = listDirectory(currentDirectory, trimmedCmd);
+      result = listDirectory(currentDirectory, trimmedCmd, level);
     } else {
       const targetPath = trimmedCmd.split(' ')[trimmedCmd.split(' ').length - 1]?.trim() ?? '';
       const normalizedPath = normalizePath(targetPath, currentDirectory);
-      result = listDirectory(normalizedPath, trimmedCmd);
+      result = listDirectory(normalizedPath, trimmedCmd, level);
     }
   } else if (trimmedCmd.startsWith('echo ')) {
     result = cmd.substring(5).trim() || '';
@@ -199,7 +219,7 @@ export const executeCommand = (
 
     const normalizedPath = normalizePath(targetPath, currentDirectory);
 
-    const validation = isValidDirectory(normalizedPath);
+    const validation = isValidDirectory(normalizedPath, level);
     if (!validation.valid) {
       return validation.error || '';
     }
@@ -212,7 +232,7 @@ export const executeCommand = (
   } else if (trimmedCmd.startsWith('cat ')) {
     const targetPath = trimmedCmd.substring(4).trim();
     const normalizedPath = normalizePath(targetPath, currentDirectory);
-    result = getFileContent(normalizedPath);
+    result = getFileContent(normalizedPath, level);
   } else result = t('commands.errors.notFound', { cmd });
 
   if (commandHasGrep) {
@@ -221,5 +241,3 @@ export const executeCommand = (
   }
   return result;
 };
-
-export const commands = ['help', 'clear', 'ls', 'pwd', 'whoami', 'date', 'echo', 'uname', 'cd', 'cat'];

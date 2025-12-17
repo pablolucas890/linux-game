@@ -31,7 +31,7 @@ export function Welcome() {
           </div>
         </div>
       </div>
-      <Terminal username={t('common.username')} machine='linux-game' />
+      <Terminal username={t('common.username')} machine='linux-game' level={1} />
     </div>
   );
 }
