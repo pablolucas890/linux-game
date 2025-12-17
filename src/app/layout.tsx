@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { I18nWrapper } from "../components/i18n-wrapper";
-import { defaultLocale, locales } from "../locales";
-import "../styles/globals.css";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { I18nWrapper } from '../components/i18n-wrapper';
+import { defaultLocale, locales } from '../locales';
+import '../styles/globals.css';
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], });
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
+const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Linux Game",
+  title: 'Linux Game',
   description: locales[defaultLocale].translations.metadata.description as string,
 };
 

@@ -1,9 +1,9 @@
 'use client';
 
-import config from "../../upstream.json";
-import Button from "../components/button";
-import { Terminal } from "../components/terminal";
-import { useI18n } from "../contexts/i18n";
+import config from '../../upstream.json';
+import Button from '../components/button';
+import { Terminal } from '../components/terminal';
+import { useI18n } from '../contexts/i18n';
 
 export function Welcome() {
   const { t } = useI18n();
