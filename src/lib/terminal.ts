@@ -1,18 +1,13 @@
-import levelOneFileSystem from '../../data/filesystems/levelOne.json';
-import { defaultLocale, type Locale } from '../../locales';
-import ptBR from '../../locales/pt-BR.json';
-import { FileSystemNode } from '../../types/props';
+import levelOneFileSystem from '../data/filesystems/levelOne.json';
+import { defaultLocale, type Locale } from '../locales';
+import ptBR from '../locales/pt-BR.json';
+import { FileSystemNode } from '../types/props';
 
 // Helper function to get translations (will be injected)
 let getTranslation: ((key: string, params?: Record<string, string>) => string) | null = null;
 let currentLocale: Locale = defaultLocale;
 
-export const setTranslationFunction = (t: (key: string, params?: Record<string, string>) => string, locale: Locale) => {
-  getTranslation = t;
-  currentLocale = locale;
-};
-
-function getNestedValue(obj: Record<string, unknown>, path: string): string {
+const getNestedValue = (obj: Record<string, unknown>, path: string): string => {
   const keys = path.split('.');
   let current: unknown = obj;
 
@@ -25,12 +20,12 @@ function getNestedValue(obj: Record<string, unknown>, path: string): string {
   }
 
   return typeof current === 'string' ? current : path;
-}
+};
 
-function replaceParams(text: string, params?: Record<string, string>): string {
+const replaceParams = (text: string, params?: Record<string, string>): string => {
   if (!params) return text;
   return Object.entries(params).reduce((acc, [key, value]) => acc.replace(`{${key}}`, value), text);
-}
+};
 
 const t = (key: string, params?: Record<string, string>): string => {
   if (!getTranslation) {
@@ -158,6 +153,11 @@ const getFileSystemDataByLevel = (level: number): FileSystemNode => {
     default:
       return levelOneFileSystem as unknown as FileSystemNode;
   }
+};
+
+export const setTranslationFunction = (t: (key: string, params?: Record<string, string>) => string, locale: Locale) => {
+  getTranslation = t;
+  currentLocale = locale;
 };
 
 export const getCommandsByLevel = (level: number): string[] => {
