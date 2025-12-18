@@ -43,7 +43,16 @@
   "screens": {
     "welcome": {
       "title": "Bem-vindo ao Linux Game!",
-      "description": "Este é um jogo de terminal que testa seu conhecimento sobre Linux e te ajuda a aprender mais sobre o sistema operacional. \n Por enquanto, o jogo em si não existe, mas você pode testar o terminal e os comandos disponíveis.",
+      "subtitle": "Aprenda Linux de forma interativa e divertida",
+      "description": "O Linux Game é uma plataforma educacional onde usuários iniciantes em Linux podem usar um terminal simulado para cumprir desafios e aprender sobre o mundo Linux de forma prática e envolvente.",
+      "features": {
+        "title": "O que você vai aprender:",
+        "terminal": "Comandos do terminal Linux",
+        "filesystem": "Estrutura do sistema de arquivos",
+        "navigation": "Navegação e manipulação de arquivos",
+        "commands": "Comandos essenciais do Linux"
+      },
+      "cta": "Vamos começar",
       "links": {
         "github": "GitHub",
         "demo": "Demo",

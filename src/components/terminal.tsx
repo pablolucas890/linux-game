@@ -208,11 +208,11 @@ export function Terminal({ username, machine, level }: TerminalProps) {
     <div
       onClick={handleFocus}
       className={clsx(
-        'bg-neutral-900 text-green-400 rounded-lg overflow-hidden shadow-2xl border border-gray-700 flex flex-col',
+        'bg-(--color-terminal-bg) text-(--color-primary-light) rounded-lg overflow-hidden shadow-2xl border border-(--color-surface-border) flex flex-col',
         maximized ? 'fixed inset-0 w-full h-full' : 'w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 h-[480px]',
       )}
     >
-      <div className='bg-neutral-800 px-4 py-2 flex items-center justify-between border-b border-gray-700 shrink-0'>
+      <div className='bg-(--color-terminal-header) px-4 py-2 flex items-center justify-between border-b border-(--color-surface-border) shrink-0'>
         <div className='flex items-center gap-2 cursor-pointer'>
           <div className='w-3 h-3 rounded-full bg-red-500'></div>
           <div className='w-3 h-3 rounded-full bg-yellow-500' onClick={() => setMaximized(!maximized)}></div>
@@ -232,8 +232,8 @@ export function Terminal({ username, machine, level }: TerminalProps) {
       >
         {!showWelcomeMessage && (
           <div className='mb-4'>
-            <div className='text-green-400'>{t('terminal.welcome')}</div>
-            <div className='text-gray-400 mt-1'>{t('terminal.helpHint')}</div>
+            <div className='text-(--color-primary-light)'>{t('terminal.welcome')}</div>
+            <div className='text-(--color-text-secondary) mt-1'>{t('terminal.helpHint')}</div>
           </div>
         )}
 
@@ -242,7 +242,7 @@ export function Terminal({ username, machine, level }: TerminalProps) {
           return (
             <div key={index} className='mb-2'>
               <div className='flex items-center gap-2 whitespace-nowrap'>
-                <span className='text-green-400 whitespace-nowrap'>
+                <span className='text-(--color-primary-light) whitespace-nowrap'>
                   {username}@{machine}
                 </span>
                 <span className='text-blue-400 whitespace-nowrap'>:</span>
@@ -270,7 +270,7 @@ export function Terminal({ username, machine, level }: TerminalProps) {
             value={currentCommand}
             onChange={e => setCurrentCommand(e.target.value)}
             onKeyDown={handleKeyDown}
-            className='flex-1 bg-transparent text-gray-300 outline-none caret-green-400 whitespace-nowrap'
+            className='flex-1 bg-transparent text-gray-300 outline-none caret-(--color-primary-light) whitespace-nowrap'
             autoFocus
           />
         </form>
