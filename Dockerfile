@@ -14,6 +14,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openssl \
+    ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p ./public && \
     if [ ! "$(ls -A ./public 2>/dev/null)" ]; then \
         touch ./public/.gitkeep; \
@@ -51,6 +56,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl \
     ca-certificates \
   && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /app/.next/cache && chown -R nextjs:nodejs /app/.next
 
 RUN mkdir -p /data && chown -R nextjs:nodejs /data
 
