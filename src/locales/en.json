@@ -60,6 +60,12 @@
         "author": "Author",
         "license": "License"
       }
+    },
+    "levels": {
+      "one": {
+        "title": "Level One",
+        "description": "That's great that you liked the Linux Game! We're still writing level 1, but you can already start exploring the terminal!"
+      }
     }
   }
 }
