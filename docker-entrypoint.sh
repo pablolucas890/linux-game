@@ -1,7 +1,8 @@
 #!/bin/sh
 set -eu
 
-: "${DATABASE_URL:?DATABASE_URL is required (ex: file:/data/prod.db)}"
+DATABASE_URL="${DATABASE_URL:-${DATABASE_URL_TO_LIB:-file:/tmp/prod.db}}"
+export DATABASE_URL
 
 export DATABASE_URL_TO_LIB="${DATABASE_URL_TO_LIB:-$DATABASE_URL}"
 
