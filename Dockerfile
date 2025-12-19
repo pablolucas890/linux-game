@@ -1,5 +1,9 @@
 FROM node:20-bookworm-slim AS deps
-RUN apk add --no-cache libc6-compat python3 make g++
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
@@ -42,7 +46,10 @@ COPY --from=deps /app/node_modules ./node_modules
 
 COPY --from=builder /app/src/prisma ./src/prisma
 
-RUN apk add --no-cache openssl ca-certificates
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openssl \
+    ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /data && chown -R nextjs:nodejs /data
 
