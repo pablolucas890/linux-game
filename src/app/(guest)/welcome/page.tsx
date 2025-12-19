@@ -12,17 +12,35 @@ export default function Welcome() {
   const { t } = useI18n();
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
+  const saveGuestInfo = async () => {
+    try {
+      const response = await fetch('/api/ip');
+      const data = await response.json();
+      const ip = data.ip;
+      if (!ip) {
+        throw new Error('IP not found: ' + data.message);
+      }
+      fetch('/api/guests', {
+        method: 'POST',
+        body: JSON.stringify({ ip }),
+      }).catch(error => {
+        console.error('Error saving guest info:', error);
+      });
+    } catch (error) {
+      console.error('Erro ao obter IP:', error);
+    }
+  };
+
+  const initVideo = () => {
     const video = videoRef.current;
     if (video) {
-      const handleLoadedMetadata = () => {
-        video.currentTime = 5;
-      };
-      video.addEventListener('loadedmetadata', handleLoadedMetadata);
-      return () => {
-        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      };
+      video.currentTime = 5;
     }
+  };
+
+  useEffect(() => {
+    saveGuestInfo();
+    initVideo();
   }, []);
 
   return (
