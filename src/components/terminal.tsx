@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useI18n } from '../contexts/i18n';
 import { executeCommand, getCommandsByLevel, setTranslationFunction } from '../lib/terminal';
 import { CommandHistory } from '../types/props';
@@ -10,8 +10,10 @@ interface TerminalProps {
   username: string;
   machine: string;
   level: number;
+  onExecuteCommand: (command: string, directory: string, output: string) => void;
 }
-export function Terminal({ username, machine, level }: TerminalProps) {
+
+export function Terminal({ username, machine, level, onExecuteCommand }: TerminalProps) {
   const { t } = useI18n();
   const [commandHistory, setCommandHistory] = useState<CommandHistory[]>([]);
   const [currentCommand, setCurrentCommand] = useState('');
@@ -51,6 +53,7 @@ export function Terminal({ username, machine, level }: TerminalProps) {
     }
 
     const output = executeCommand(currentCommand, currentDirectory, setCurrentDirectory, level);
+    onExecuteCommand(currentCommand, currentDirectory, output);
 
     if (currentCommand.trim() !== 'clear') {
       setCommandHistory(prev => [
@@ -204,6 +207,49 @@ export function Terminal({ username, machine, level }: TerminalProps) {
     return path;
   };
 
+  const sanitizeCssColor = (value: string): string | null => {
+    const v = value.trim();
+    if (/^[a-zA-Z]+$/.test(v)) return v.toLowerCase();
+    if (/^#[0-9a-fA-F]{3}$/.test(v)) return v;
+    if (/^#[0-9a-fA-F]{6}$/.test(v)) return v;
+    if (/^#[0-9a-fA-F]{8}$/.test(v)) return v;
+    return null;
+  };
+
+  const renderColorMarkup = (text: string) => {
+    const re = /<color=([^>]+)>([\s\S]*?)<\/color>/g;
+    const nodes: ReactNode[] = [];
+
+    let last = 0;
+    let match: RegExpExecArray | null;
+    let key = 0;
+
+    while ((match = re.exec(text)) !== null) {
+      const start = match.index;
+      const full = match[0] ?? '';
+      const colorRaw = match[1] ?? '';
+      const inner = match[2] ?? '';
+
+      if (start > last) nodes.push(text.slice(last, start));
+
+      const color = sanitizeCssColor(colorRaw);
+      if (color) {
+        nodes.push(
+          <span key={`c-${key++}`} style={{ color }}>
+            {inner}
+          </span>,
+        );
+      } else {
+        nodes.push(inner);
+      }
+
+      last = start + full.length;
+    }
+
+    if (last < text.length) nodes.push(text.slice(last));
+    return nodes;
+  };
+
   return (
     <div
       onClick={handleFocus}
@@ -250,7 +296,9 @@ export function Terminal({ username, machine, level }: TerminalProps) {
                 <span className='text-blue-400 whitespace-nowrap'>$</span>
                 <span className='text-gray-300 ml-1 whitespace-nowrap'>{item.command}</span>
               </div>
-              {item.output && <div className='text-gray-300 mt-1 ml-0 whitespace-pre-wrap'>{item.output}</div>}
+              {item.output && (
+                <div className='text-gray-300 mt-1 ml-0 whitespace-pre-wrap'>{renderColorMarkup(item.output)}</div>
+              )}
             </div>
           );
         })}

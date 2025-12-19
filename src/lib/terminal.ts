@@ -139,9 +139,10 @@ const getFileContent = (path: string, level: number): string => {
   return (node as FileSystemNode & { content: string }).content || '';
 };
 
-const grepResult = (content: string, pattern: string): string => {
+const grepResult = (content: string, pattern: string, showLines: boolean): string => {
   return content
     .split('\n')
+    .map((line, index) => (showLines ? `<color=green>${index + 1}</color>: ${line}` : line))
     .filter(line => line.toLowerCase().includes(pattern.toLowerCase()))
     .join('\n');
 };
@@ -236,8 +237,10 @@ export const executeCommand = (
   } else result = t('commands.errors.notFound', { cmd });
 
   if (commandHasGrep) {
-    const pattern = generalCmd.split(' | grep ')?.[1];
-    result = grepResult(result, pattern);
+    let pattern = generalCmd.split(' | grep ')?.[1]?.trim();
+    const showLines = pattern?.includes('-n');
+    pattern = pattern?.replace('-n', '').trim();
+    result = grepResult(result, pattern, showLines);
   }
   return result;
 };
