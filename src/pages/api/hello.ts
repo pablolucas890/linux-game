@@ -5,6 +5,17 @@ type ResponseData = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
-  console.log('Hello from Next.js!');
-  res.status(200).json({ message: 'Hello from Next.js!' });
+  const xForwardedForRaw = req.headers['x-forwarded-for'];
+  const xForwardedFor =
+    typeof xForwardedForRaw === 'string'
+      ? xForwardedForRaw
+          .split(',')
+          .map(s => s.trim())
+          .filter(Boolean)
+          .join(', ')
+      : Array.isArray(xForwardedForRaw)
+        ? xForwardedForRaw.join(', ')
+        : undefined;
+
+  res.status(200).json({ message: 'Hello from Next.js! your IP is: ' + xForwardedFor });
 }
