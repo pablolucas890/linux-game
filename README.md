@@ -48,7 +48,15 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Configure prisma
+
+```bash
+cp .env.example .env # And configure dev database file
+npx prisma generate # To generate client
+npm run prisma:deploy # To apply prisma migrations
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## 🌍 Translation
 
