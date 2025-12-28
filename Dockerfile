@@ -56,6 +56,7 @@ COPY --from=builder /app/src/prisma ./src/prisma
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl \
+    gosu \
     ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
@@ -66,7 +67,7 @@ RUN mkdir -p /data && chown -R nextjs:nodejs /data
 COPY docker-entrypoint.sh ./docker-entrypoint.sh
 RUN chmod +x ./docker-entrypoint.sh
 
-USER nextjs
+USER root
 
 EXPOSE 3000
 
