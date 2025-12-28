@@ -5,7 +5,8 @@
   "terminal": {
     "welcome": "Welcome to Linux Terminal Game!",
     "helpHint": "Type 'help' to see available commands.",
-    "terminalAt": "terminal@"
+    "terminalAt": "terminal@",
+    "success": "You completed the challenge! the answer will be in the output of the last command."
   },
   "commands": {
     "help": {

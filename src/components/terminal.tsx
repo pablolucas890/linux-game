@@ -10,7 +10,7 @@ interface TerminalProps {
   username: string;
   machine: string;
   level: number;
-  onExecuteCommand: (command: string, directory: string, output: string) => void;
+  onExecuteCommand: (command: string, directory: string, output: string) => boolean;
 }
 
 export function Terminal({ username, machine, level, onExecuteCommand }: TerminalProps) {
@@ -21,6 +21,8 @@ export function Terminal({ username, machine, level, onExecuteCommand }: Termina
   const [currentDirectory, setCurrentDirectory] = useState('/home/user');
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
   const [maximized, setMaximized] = useState(false);
+  const [successPulse, setSuccessPulse] = useState(false);
+  const [toast, setToast] = useState<{ message: string; visible: boolean } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +55,22 @@ export function Terminal({ username, machine, level, onExecuteCommand }: Termina
     }
 
     const output = executeCommand(currentCommand, currentDirectory, setCurrentDirectory, level);
-    onExecuteCommand(currentCommand, currentDirectory, output);
+    const ok = onExecuteCommand(currentCommand, directoryAtCommand, output);
+    if (ok) {
+      try {
+        if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+          (navigator as Navigator & { vibrate?: (pattern: number | number[]) => boolean }).vibrate?.(35);
+        }
+      } catch {
+        // ignore
+      }
+
+      setSuccessPulse(true);
+      setToast({ message: t('terminal.success') ?? 'Sucesso!', visible: true });
+
+      window.setTimeout(() => setSuccessPulse(false), 1000);
+      window.setTimeout(() => setToast(null), 8000);
+    }
 
     if (currentCommand.trim() !== 'clear') {
       setCommandHistory(prev => [
@@ -254,10 +271,18 @@ export function Terminal({ username, machine, level, onExecuteCommand }: Termina
     <div
       onClick={handleFocus}
       className={clsx(
-        'bg-(--color-terminal-bg) text-(--color-primary-light) rounded-lg overflow-hidden shadow-2xl border border-(--color-surface-border) flex flex-col',
+        'bg-(--color-terminal-bg) text-(--color-primary-light) rounded-lg overflow-hidden shadow-2xl border border-(--color-surface-border) flex flex-col relative',
         maximized ? 'fixed inset-0 w-full h-full' : 'w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 h-[480px]',
+        successPulse && 'border-green-500 border-2 terminal-success-pulse',
       )}
     >
+      {toast?.visible && (
+        <div className='absolute top-3 right-3 z-50'>
+          <div className='px-3 py-2 rounded-md text-sm font-medium bg-green-600/90 text-white shadow-lg border border-green-300/40'>
+            {toast.message}
+          </div>
+        </div>
+      )}
       <div className='bg-(--color-terminal-header) px-4 py-2 flex items-center justify-between border-b border-(--color-surface-border) shrink-0'>
         <div className='flex items-center gap-2 cursor-pointer'>
           <div className='w-3 h-3 rounded-full bg-red-500'></div>

@@ -9,9 +9,8 @@ import { FaFileAlt, FaGamepad, FaGithub, FaHandsHelping, FaUser } from 'react-ic
 export default function One() {
   const { t } = useI18n();
 
-  const handleExecuteCommand = (command: string, directory: string, output: string) => {
+  const handleExecuteCommand = (command: string, directory: string, output: string): boolean => {
     // TODO: Switch to Backend validation
-    // TODO: Show a success message
     // TODO: Create interfaces
 
     const SUCCESS = {
@@ -20,15 +19,13 @@ export default function One() {
       output: ['<color=green>206</color>:         <p>The new policy was discussed in a pubic meeting.</p>'],
     };
 
-    if (
-      SUCCESS.command.some(cmd => cmd.includes(command)) &&
-      SUCCESS.directory.some(dir => dir === directory) &&
-      SUCCESS.output.some(out => out === output)
-    ) {
-      console.log('Success');
-    } else {
-      console.log('Failed');
-    }
+    const normalizedCommand = command.trim();
+    const ok =
+      SUCCESS.command.includes(normalizedCommand) &&
+      SUCCESS.directory.includes(directory) &&
+      SUCCESS.output.includes(output);
+
+    return ok;
   };
 
   return (
