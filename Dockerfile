@@ -39,7 +39,9 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV HOSTNAME "0.0.0.0"
 ENV PORT 3000
-ENV DATABASE_URL="file:/tmp/prod.db"
+
+ENV DATABASE_URL="file:/data/prod.db"
+ENV DATABASE_URL_TO_LIB="file:/data/prod.db"
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
