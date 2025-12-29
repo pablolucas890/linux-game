@@ -4,6 +4,7 @@ import Button from '@/src/components/button';
 import { TypeWriterStage, TypeWriterStageConfig } from '@/src/types/props';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useI18n } from '../contexts/i18n';
 
 interface TypeWriterContainerProps {
   currentStage: TypeWriterStageConfig;
@@ -17,6 +18,7 @@ interface TypeWriterContainerProps {
     finished: boolean;
   };
   onNextStage: (nextStage: TypeWriterStage) => void;
+  nextButtonTextKey?: string;
 }
 
 export function TypeWriterContainer({
@@ -25,7 +27,9 @@ export function TypeWriterContainer({
   isActive,
   getStageState,
   onNextStage,
+  nextButtonTextKey = 'screens.levels.one.next',
 }: TypeWriterContainerProps) {
+  const { t } = useI18n();
   return (
     <div
       className={clsx(
@@ -80,7 +84,7 @@ export function TypeWriterContainer({
             )}
           >
             <Button.Two href='#' onClick={() => onNextStage(currentStage.nextStage)}>
-              Entendido!
+              {t(nextButtonTextKey)}
             </Button.Two>
           </div>
         </div>

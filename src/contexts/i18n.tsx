@@ -8,8 +8,10 @@ interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (key: string, params?: Record<string, string>) => string;
+  tArray: (key: string) => string[];
   availableLocales: Locale[];
   localeInfo: LocaleInfo;
+  isLoading: boolean;
 }
 
 function getNestedValueInObject(obj: Record<string, unknown>, path: string): string | null {
@@ -25,6 +27,21 @@ function getNestedValueInObject(obj: Record<string, unknown>, path: string): str
   }
 
   return typeof current === 'string' ? current : null;
+}
+
+function getNestedArrayInObject(obj: Record<string, unknown>, path: string): string[] | null {
+  const keys = path.split('.');
+  let current: unknown = obj;
+
+  for (const key of keys) {
+    if (current && typeof current === 'object' && key in current) {
+      current = (current as Record<string, unknown>)[key];
+    } else {
+      return null;
+    }
+  }
+
+  return Array.isArray(current) && current.every(item => typeof item === 'string') ? (current as string[]) : null;
 }
 
 function getNestedValue(obj: Record<string, unknown>, path: string): string {
@@ -59,6 +76,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   // Always start with defaultLocale to avoid hydration mismatch
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -71,6 +89,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
         const localeInfo = locales[defaultLocale];
         document.documentElement.lang = localeInfo.code;
       }
+      setIsLoading(false);
     }
   }, [availableLocales]);
 
@@ -93,10 +112,30 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     return replaceParams(translation, params);
   };
 
+  const tArray = (key: string): string[] => {
+    const currentLocaleInfo = locales[locale];
+    const array = getNestedArrayInObject(currentLocaleInfo.translations as Record<string, unknown>, key);
+    if (array !== null) {
+      return array;
+    }
+
+    // If not found, try to get from English as fallback
+    if (locales.en) {
+      const enTranslations = locales.en.translations as Record<string, unknown>;
+      const enArray = getNestedArrayInObject(enTranslations, key);
+      if (enArray !== null) {
+        return enArray;
+      }
+    }
+
+    // If still not found, return empty array
+    return [];
+  };
+
   const localeInfo = locales[locale];
 
   return (
-    <I18nContext.Provider value={{ locale, setLocale, t, availableLocales, localeInfo }}>
+    <I18nContext.Provider value={{ locale, setLocale, t, tArray, availableLocales, localeInfo, isLoading }}>
       {children}
     </I18nContext.Provider>
   );

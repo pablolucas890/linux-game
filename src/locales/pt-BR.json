@@ -63,9 +63,26 @@
       }
     },
     "levels": {
-      "one": {
-        "title": "Nível 1",
-        "description": "Que bom que gostou do Linux Game! Ainda estamos escrevendo o nível 1, mas você pode já começar a explorar o terminal!"
+      "1": {
+        "title": "Nível 1 - Qual a linha do erro?",
+        "next": "Entendi!",
+        "placeholder": "Digite o número da linha e pressione enter...",
+        "helpers": {
+          "one": [
+            "Olá, aventureiro(a)! Seja bem-vindo(a) ao primeiro desafio do Linux Game.",
+            "Neste desafio, você irá aprender a redirecionar a saída de um comando para outro comando usando o operador pipe (|).",
+            "Além disso, você irá aprender a filtrar resultados usando padrões de texto com o comando grep."
+          ],
+          "two": [
+            "Em alguns casos, temos uma saída de um arquivo ou comando com muitas linhas, e precisamos filtrar apenas as linhas que nos interessam.",
+            "Para isso, podemos usar o comando grep, que permite filtrar linhas de acordo com um padrão de texto que você especificar.",
+            "Usando o operador pipe (|), podemos redirecionar a saída de um comando para outro comando, e assim filtrar os resultados. Exemplo:"
+          ]
+        },
+        "success": {
+          "message": "Parabéns! você completou o primeiro desafio!",
+          "description": "Você completou o desafio e aprendeu um pouco mais sobre o terminal Linux e o comando grep, aliás, veja um pouco mais sobre ele."
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { I18nWrapper } from '../components/i18n-wrapper';
+import Wrapper from '../components/wrapper';
 import { defaultLocale, locales } from '../locales';
 // copyright: https://tailwindflex.com/@anonymous/background-animation
 import '../styles/bubble.css';
@@ -34,7 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <li className='circle circle10'></li>
             </ul>
           </div>
-          <I18nWrapper>{children}</I18nWrapper>
+          <Wrapper.I18n>{children}</Wrapper.I18n>
         </div>
       </body>
     </html>

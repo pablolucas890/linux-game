@@ -63,9 +63,26 @@
       }
     },
     "levels": {
-      "one": {
-        "title": "Level One",
-        "description": "That's great that you liked the Linux Game! We're still writing level 1, but you can already start exploring the terminal!"
+      "1": {
+        "title": "Level One - What is the error line?",
+        "next": "I got it!",
+        "placeholder": "Enter the line number and press enter...",
+        "helpers": {
+          "one": [
+            "Hello, adventurer! Welcome to the first challenge of Linux Game.",
+            "In this challenge, you will learn to redirect the output of one command to another command using the pipe operator (|).",
+            "Additionally, you will learn to filter results using text patterns with the grep command."
+          ],
+          "two": [
+            "In some cases, we have output from a file or command with many lines, and we need to filter only the lines that interest us.",
+            "For this, we can use the grep command, which allows filtering lines according to a text pattern that you specify.",
+            "Using the pipe operator (|), we can redirect the output of one command to another command, and thus filter the results. Example:"
+          ]
+        },
+        "success": {
+          "message": "Congratulations! you completed the first challenge!",
+          "description": "You completed the challenge and learned a little more about the Linux terminal and the grep command, by the way, see a little more about it."
+        }
       }
     }
   }

@@ -66,7 +66,7 @@ export function Terminal({ username, machine, level, onExecuteCommand }: Termina
       }
 
       setSuccessPulse(true);
-      setToast({ message: t('terminal.success') ?? 'Sucesso!', visible: true });
+      setToast({ message: t('terminal.success') ?? 'Sucess!', visible: true });
 
       window.setTimeout(() => setSuccessPulse(false), 1000);
       window.setTimeout(() => setToast(null), 8000);
