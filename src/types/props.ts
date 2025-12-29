@@ -24,3 +24,14 @@ export interface OutputCommandTest {
   directory: string;
   output: string;
 }
+
+export type TypeWriterStage = 'one' | 'two' | 'three';
+
+export type LevelId = 'one';
+
+export interface TypeWriterStageConfig {
+  id: TypeWriterStage;
+  texts: string[];
+  nextStage: TypeWriterStage;
+  gif?: string;
+}

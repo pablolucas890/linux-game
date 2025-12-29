@@ -272,7 +272,7 @@ export function Terminal({ username, machine, level, onExecuteCommand }: Termina
       onClick={handleFocus}
       className={clsx(
         'bg-(--color-terminal-bg) text-(--color-primary-light) rounded-lg overflow-hidden shadow-2xl border border-(--color-surface-border) flex flex-col relative',
-        maximized ? 'fixed inset-0 w-full h-full' : 'w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 h-[480px]',
+        maximized ? 'fixed inset-0 w-full h-screen' : 'w-full sm:w-3/4 lg:w-1/2 4xl:w-1/3 h-[480px]',
         successPulse && 'border-green-500 border-2 terminal-success-pulse',
       )}
     >
