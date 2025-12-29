@@ -12,3 +12,15 @@ export interface CommandHistory {
   timestamp: Date;
   directory: string;
 }
+
+export interface OutputCommandTestArray {
+  command: string[];
+  directory: string[];
+  output: string[];
+}
+
+export interface OutputCommandTest {
+  command: string;
+  directory: string;
+  output: string;
+}

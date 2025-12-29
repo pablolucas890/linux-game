@@ -10,7 +10,7 @@ interface TerminalProps {
   username: string;
   machine: string;
   level: number;
-  onExecuteCommand: (command: string, directory: string, output: string) => boolean;
+  onExecuteCommand: (command: string, directory: string, output: string) => Promise<boolean>;
 }
 
 export function Terminal({ username, machine, level, onExecuteCommand }: TerminalProps) {
@@ -42,7 +42,7 @@ export function Terminal({ username, machine, level, onExecuteCommand }: Termina
     }
   }, [commandHistory]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!currentCommand.trim()) return;
@@ -55,7 +55,7 @@ export function Terminal({ username, machine, level, onExecuteCommand }: Termina
     }
 
     const output = executeCommand(currentCommand, currentDirectory, setCurrentDirectory, level);
-    const ok = onExecuteCommand(currentCommand, directoryAtCommand, output);
+    const ok = await onExecuteCommand(currentCommand, directoryAtCommand, output);
     if (ok) {
       try {
         if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {

@@ -9,23 +9,13 @@ import { FaFileAlt, FaGamepad, FaGithub, FaHandsHelping, FaUser } from 'react-ic
 export default function One() {
   const { t } = useI18n();
 
-  const handleExecuteCommand = (command: string, directory: string, output: string): boolean => {
-    // TODO: Switch to Backend validation
-    // TODO: Create interfaces
-
-    const SUCCESS = {
-      command: ['cat index.html | grep pubic -n', 'cat index.html | grep -n pubic'],
-      directory: ['/var/www/html'],
-      output: ['<color=green>206</color>:         <p>The new policy was discussed in a pubic meeting.</p>'],
-    };
-
-    const normalizedCommand = command.trim();
-    const ok =
-      SUCCESS.command.includes(normalizedCommand) &&
-      SUCCESS.directory.includes(directory) &&
-      SUCCESS.output.includes(output);
-
-    return ok;
+  const handleExecuteCommand = async (command: string, directory: string, output: string): Promise<boolean> => {
+    const response = await fetch('/api/levels/one', {
+      method: 'POST',
+      body: JSON.stringify({ command, directory, output }),
+    });
+    const data = await response.json();
+    return data.success;
   };
 
   return (
