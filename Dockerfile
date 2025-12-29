@@ -39,7 +39,9 @@ ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV HOSTNAME "0.0.0.0"
 ENV PORT 3000
-ENV DATABASE_URL="file:/tmp/prod.db"
+
+ENV DATABASE_URL="file:/data/prod.db"
+ENV DATABASE_URL_TO_LIB="file:/data/prod.db"
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -54,6 +56,7 @@ COPY --from=builder /app/src/prisma ./src/prisma
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl \
+    gosu \
     ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
@@ -64,7 +67,7 @@ RUN mkdir -p /data && chown -R nextjs:nodejs /data
 COPY docker-entrypoint.sh ./docker-entrypoint.sh
 RUN chmod +x ./docker-entrypoint.sh
 
-USER nextjs
+USER root
 
 EXPOSE 3000
 
