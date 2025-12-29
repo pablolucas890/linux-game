@@ -44,9 +44,9 @@ export default function Welcome() {
   }, []);
 
   return (
-    <div className='min-h-screen w-full bg-(--color-bg) flex flex-col items-center justify-center p-4 md:p-8'>
+    <div className='min-h-screen w-full flex flex-col items-center justify-center p-4 md:p-8'>
       <div className='w-full max-w-6xl flex flex-col items-center gap-8 md:gap-12'>
-        <div className='flex flex-col items-center gap-4 animate-fade-in'>
+        <div className='flex flex-col items-center gap-4 animate-fade-in bg-(--color-surface) rounded-xl p-6 shadow-lg border border-(--color-surface-border)'>
           <div className='relative w-32 h-32 md:w-40 md:h-40'>
             <Image src={logoImage} alt='Linux Game Logo' fill className='drop-shadow-2xl rounded-3xl' priority />
           </div>
