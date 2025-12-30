@@ -77,6 +77,12 @@
             "Em alguns casos, temos uma saída de um arquivo ou comando com muitas linhas, e precisamos filtrar apenas as linhas que nos interessam.",
             "Para isso, podemos usar o comando grep, que permite filtrar linhas de acordo com um padrão de texto que você especificar.",
             "Usando o operador pipe (|), podemos redirecionar a saída de um comando para outro comando, e assim filtrar os resultados. Exemplo:"
+          ],
+          "three": [
+            "Agora, vamos para o desafio!",
+            "Imagine que você está auditando o servidor de um site de uma empresa e precisa alterar uma mensagem que foi inserida incorretamente no site e está causando problemas jurídicos.",
+            "Como você faria para encontrar a linha correta que precisa ser editada?",
+            "A palavra que foi digitada incorretamente é uma variação de 'public'. Sua missão é encontrar a linha onde essa palavra aparece."
           ]
         },
         "success": {

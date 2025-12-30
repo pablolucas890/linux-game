@@ -25,7 +25,7 @@ export interface OutputCommandTest {
   output: string;
 }
 
-export type TypeWriterStage = 'one' | 'two' | 'three';
+export type TypeWriterStage = 'one' | 'two' | 'three' | 'four';
 
 export type LevelId = 1;
 

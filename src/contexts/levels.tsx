@@ -6,6 +6,7 @@ import { LevelId, TypeWriterStage } from '../types/props';
 interface LevelsContextValue {
   typeWriter: (e: Element) => Promise<void>;
   handleExecuteCommand: (level: LevelId, command: string, directory: string, output: string) => Promise<boolean>;
+  handleTestResult: (level: LevelId, result: string) => Promise<boolean>;
   handleStartStages: (
     stage: TypeWriterStage,
     setStage: Dispatch<SetStateAction<number>>,
@@ -13,6 +14,9 @@ interface LevelsContextValue {
     setCurrentStage?: Dispatch<SetStateAction<TypeWriterStage>>,
   ) => Promise<void>;
 }
+
+// TODO: Increase delay if needed
+const TYPE_WRITER_DELAY = 5;
 
 const LevelsContext = createContext<LevelsContextValue | undefined>(undefined);
 
@@ -27,7 +31,7 @@ export function LevelsProvider({ children }: { children: React.ReactNode }) {
           if (i === textoArray.length - 1) {
             resolve();
           }
-        }, 75 * i);
+        }, TYPE_WRITER_DELAY * i);
       });
     });
   }, []);
@@ -61,7 +65,7 @@ export function LevelsProvider({ children }: { children: React.ReactNode }) {
     directory: string,
     output: string,
   ): Promise<boolean> => {
-    const response = await fetch(`/api/levels/${level}`, {
+    const response = await fetch(`/api/levels/command/${level}`, {
       method: 'POST',
       body: JSON.stringify({ command, directory, output }),
     });
@@ -69,8 +73,17 @@ export function LevelsProvider({ children }: { children: React.ReactNode }) {
     return data.success;
   };
 
+  const handleTestResult = async (level: LevelId, result: string): Promise<boolean> => {
+    const response = await fetch(`/api/levels/result/${level}`, {
+      method: 'POST',
+      body: JSON.stringify({ result }),
+    });
+    const data = await response.json();
+    return data.success;
+  };
+
   return (
-    <LevelsContext.Provider value={{ typeWriter, handleStartStages, handleExecuteCommand }}>
+    <LevelsContext.Provider value={{ typeWriter, handleStartStages, handleExecuteCommand, handleTestResult }}>
       {children}
     </LevelsContext.Provider>
   );

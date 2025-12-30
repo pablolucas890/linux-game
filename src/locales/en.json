@@ -77,6 +77,12 @@
             "In some cases, we have output from a file or command with many lines, and we need to filter only the lines that interest us.",
             "For this, we can use the grep command, which allows filtering lines according to a text pattern that you specify.",
             "Using the pipe operator (|), we can redirect the output of one command to another command, and thus filter the results. Example:"
+          ],
+          "three": [
+            "Now, let's go to the challenge!",
+            "Imagine that you are auditing a server of a company's website and need to edit a message that was incorrectly inserted into the website and is causing legal problems",
+            "How would you find the correct line to edit?",
+            "The word that was incorrectly entered is a variation of 'public'. Your mission is to find the line where it appears."
           ]
         },
         "success": {

@@ -13,22 +13,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 interface LevelWrapperProps {
   typeWriterStages: TypeWriterStageConfig[];
   levelId: LevelId;
-  onInputSubmit: (value: string) => boolean | void;
   onSuccessToast: () => void;
   initialStage?: TypeWriterStage;
 }
 
-export function Level({
-  typeWriterStages,
-  levelId,
-  onInputSubmit,
-  onSuccessToast,
-  initialStage = 'one',
-}: LevelWrapperProps) {
+export function Level({ typeWriterStages, levelId, onSuccessToast, initialStage = 'one' }: LevelWrapperProps) {
   const { t } = useI18n();
-  const { handleStartStages, handleExecuteCommand } = useLevels();
+  const { handleStartStages, handleExecuteCommand, handleTestResult } = useLevels();
 
-  // Gera automaticamente as chaves de tradução baseadas no levelId
   const translationKeys = useMemo(
     () => ({
       title: `screens.levels.${levelId}.title`,
@@ -98,9 +90,9 @@ export function Level({
     };
   };
 
-  const handleInputSubmit = (value: string) => {
-    const result = onInputSubmit(value);
-    if (result !== false) {
+  const handleInputSubmit = async (value: string) => {
+    const result = await handleTestResult(levelId, value);
+    if (result) {
       setInputSuccessPulse(true);
       setInputToast({
         message: t(translationKeys.successMessage),
