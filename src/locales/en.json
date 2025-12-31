@@ -75,25 +75,22 @@
         "placeholder": "Enter the line number and press enter...",
         "helpers": {
           "one": [
-            "Hello, adventurer! Welcome to the first challenge of Linux Game.",
-            "In this challenge, you will learn to redirect the output of one command to another command using the pipe operator (|).",
-            "Additionally, you will learn to filter results using text patterns with the grep command."
+            "Welcome to the first challenge!",
+            "You will learn to use the grep command to find specific lines in files."
           ],
           "two": [
-            "In some cases, we have output from a file or command with many lines, and we need to filter only the lines that interest us.",
-            "For this, we can use the grep command, which allows filtering lines according to a text pattern that you specify.",
-            "Using the pipe operator (|), we can redirect the output of one command to another command, and thus filter the results. Example:"
+            "The grep command filters lines that contain a specific text.",
+            "Use the pipe (|) to send a command's output to grep. Example: cat file.txt | grep 'text'"
           ],
           "three": [
-            "Now, let's go to the challenge!",
-            "Imagine that you are auditing a server of a company's website and need to edit a message that was incorrectly inserted into the website and is causing legal problems",
-            "How would you find the correct line to edit?",
-            "The word that was incorrectly entered is a variation of 'public'. Your mission is to find the line where it appears."
+            "Your mission:",
+            "Find the line that contains a misspelled word (a variation of 'public').",
+            "Use grep to filter and find that line!"
           ]
         },
         "success": {
           "message": "Congratulations! you completed the first challenge!",
-          "description": "You completed the challenge and learned a little more about the Linux terminal and the grep command, by the way, see a little more about it."
+          "description": "You completed the challenge and learned the basics of grep!\n\nUseful options:\n-i: case-insensitive search (ignores uppercase/lowercase)\n-v: invert search (show lines that DON'T contain the pattern)\n-r: recursive search in directories\n\nGrep supports regular expressions: use ^ for line start, $ for line end, . for any character.\n\nFun fact: the name 'grep' comes from 'Global Regular Expression Print'.\n\nUse cases: finding errors in logs, filtering processes, searching source code."
         }
       }
     }

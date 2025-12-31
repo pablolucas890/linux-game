@@ -75,25 +75,22 @@
         "placeholder": "Digite o número da linha e pressione enter...",
         "helpers": {
           "one": [
-            "Olá, aventureiro(a)! Seja bem-vindo(a) ao primeiro desafio do Linux Game.",
-            "Neste desafio, você irá aprender a redirecionar a saída de um comando para outro comando usando o operador pipe (|).",
-            "Além disso, você irá aprender a filtrar resultados usando padrões de texto com o comando grep."
+            "Bem-vindo ao primeiro desafio!",
+            "Você vai aprender a usar o comando grep para encontrar linhas específicas em arquivos."
           ],
           "two": [
-            "Em alguns casos, temos uma saída de um arquivo ou comando com muitas linhas, e precisamos filtrar apenas as linhas que nos interessam.",
-            "Para isso, podemos usar o comando grep, que permite filtrar linhas de acordo com um padrão de texto que você especificar.",
-            "Usando o operador pipe (|), podemos redirecionar a saída de um comando para outro comando, e assim filtrar os resultados. Exemplo:"
+            "O comando grep filtra linhas que contêm um texto específico.",
+            "Use o pipe (|) para enviar a saída de um comando para o grep. Exemplo: cat arquivo.txt | grep 'texto'"
           ],
           "three": [
-            "Agora, vamos para o desafio!",
-            "Imagine que você está auditando o servidor de um site de uma empresa e precisa alterar uma mensagem que foi inserida incorretamente no site e está causando problemas jurídicos.",
-            "Como você faria para encontrar a linha correta que precisa ser editada?",
-            "A palavra que foi digitada incorretamente é uma variação de 'public'. Sua missão é encontrar a linha onde essa palavra aparece."
+            "Sua missão:",
+            "Encontre a linha que contém uma palavra escrita errada (uma variação de 'public').",
+            "Use grep para filtrar e encontrar essa linha!"
           ]
         },
         "success": {
           "message": "Parabéns! você completou o primeiro desafio!",
-          "description": "Você completou o desafio e aprendeu um pouco mais sobre o terminal Linux e o comando grep, aliás, veja um pouco mais sobre ele."
+          "description": "Você completou o desafio e aprendeu o básico do grep!\n\nOpções úteis:\n-i: busca case-insensitive (ignora maiúsculas/minúsculas)\n-v: inverte a busca (mostra linhas que NÃO contêm o padrão)\n-r: busca recursiva em diretórios\n\nO grep suporta expressões regulares: use ^ para início de linha, $ para fim, . para qualquer caractere.\n\nCuriosidade: o nome 'grep' vem de 'Global Regular Expression Print'.\n\nCasos de uso: encontrar erros em logs, filtrar processos, buscar em código-fonte."
         }
       }
     }
