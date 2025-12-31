@@ -41,7 +41,7 @@ export function TypeWriterContainer({
     >
       <Card.One padding='lg' animation='animate-fade-in'>
         <div
-          className='flex flex-col gap-6 text-xl font-bold text-(--color-primary-light) font-mono *:transition-all *:duration-500 *:ease-in-out'
+          className='flex flex-col gap-6 text-lg font-bold text-(--color-primary-light) font-mono *:transition-all *:duration-500 *:ease-in-out'
           style={{ fontFamily: 'var(--font-geist-mono)' }}
         >
           {currentStage.texts.map((text, index) => {
@@ -61,16 +61,16 @@ export function TypeWriterContainer({
           {currentStage.videoUrl && (
             <div
               className={clsx(
-                'mb-6 w-full rounded-lg overflow-hidden flex justify-center items-center',
+                'mb-2 w-full rounded-lg overflow-hidden flex justify-center items-center',
                 getStageState(currentStage.id).finished ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2',
               )}
             >
-              <video src={currentStage.videoUrl} controls muted className='w-full mt-[-4px] rounded-lg shadow-lg' />
+              <video src={currentStage.videoUrl} controls muted className='w-3/4 mt-[-4px] rounded-lg shadow-lg' />
             </div>
           )}
           <div
             className={clsx(
-              'mt-4 flex justify-center',
+              'mt-2 flex justify-center',
               stageState.finished
                 ? 'opacity-100 translate-y-0 pointer-events-auto'
                 : 'opacity-0 translate-y-2 pointer-events-none',

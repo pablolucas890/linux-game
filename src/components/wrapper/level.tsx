@@ -129,7 +129,7 @@ export function Level({ typeWriterStages, levelId, onSuccessToast, initialStage 
 
       <div
         className={clsx(
-          'w-full flex flex-col items-center justify-center p-4 md:p-8 h-screen overflow-hidden',
+          'w-full flex flex-col items-center justify-center h-screen overflow-hidden',
           !isLastStage && 'bg-(--color-bg)',
         )}
       >
@@ -137,7 +137,7 @@ export function Level({ typeWriterStages, levelId, onSuccessToast, initialStage 
           <h1 className='text-2xl font-bold text-(--color-text) mb-4'>{t(translationKeys.title)}</h1>
         </div>
 
-        <div className='relative w-full max-w-4xl'>
+        <div className='relative w-full flex justify-center items-center'>
           {typeWriterStages.map(stage => (
             <TypeWriterContainer
               key={stage.id}
