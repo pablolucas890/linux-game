@@ -3,7 +3,6 @@
 import Button from '@/src/components/button';
 import { TypeWriterStage, TypeWriterStageConfig } from '@/src/types/props';
 import clsx from 'clsx';
-import Image from 'next/image';
 import { useI18n } from '../contexts/i18n';
 
 interface TypeWriterContainerProps {
@@ -58,21 +57,14 @@ export function TypeWriterContainer({
               </span>
             );
           })}
-          {currentStage.gif && (
+          {currentStage.videoUrl && (
             <div
               className={clsx(
                 'mb-6 w-full rounded-lg overflow-hidden flex justify-center items-center',
                 getStageState(currentStage.id).finished ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2',
               )}
             >
-              <Image
-                src={currentStage.gif}
-                alt='Stage illustration'
-                width={800}
-                height={400}
-                className='w-1/2 h-auto object-cover rounded-lg'
-                unoptimized
-              />
+              <video src={currentStage.videoUrl} controls muted className='w-full mt-[-4px] rounded-lg shadow-lg' />
             </div>
           )}
           <div

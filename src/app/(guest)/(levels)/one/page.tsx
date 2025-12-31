@@ -20,7 +20,7 @@ export default function One() {
         id: 'two',
         texts: tArray('screens.levels.1.helpers.two'),
         nextStage: 'three',
-        gif: 'https://picsum.photos/800/400',
+        videoUrl: '/videos/level-one/grep-explaining.mp4',
       },
       {
         id: 'three',

@@ -33,5 +33,5 @@ export interface TypeWriterStageConfig {
   id: TypeWriterStage;
   texts: string[];
   nextStage: TypeWriterStage;
-  gif?: string;
+  videoUrl?: string;
 }

@@ -9,7 +9,12 @@ type PostResponseData = {
 type Slug = 'command' | 'result';
 
 const OUTPUT_COMMAND_TEST_ARRAY: OutputCommandTestArray = {
-  command: ['cat index.html | grep pubic -n', 'cat index.html | grep -n pubic'],
+  command: [
+    'cat index.html | grep pubic -n',
+    'cat index.html | grep -n pubic',
+    'cat index.html | grep "pubic" -n',
+    'cat index.html | grep -n "pubic"',
+  ],
   directory: ['/var/www/html'],
   output: ['<color=green>206</color>:         <p>The new policy was discussed in a pubic meeting.</p>'],
 };
