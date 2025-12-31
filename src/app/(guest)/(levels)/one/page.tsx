@@ -8,7 +8,6 @@ import { useMemo } from 'react';
 export default function One() {
   const { tArray } = useI18n();
 
-  // TODO: add more stages explaining the task and add gif
   const typeWriterStages: TypeWriterStageConfig[] = useMemo(
     () => [
       {

@@ -15,8 +15,7 @@ interface LevelsContextValue {
   ) => Promise<void>;
 }
 
-// TODO: Increase delay if needed
-const TYPE_WRITER_DELAY = 5;
+const TYPE_WRITER_DELAY = 10;
 
 const LevelsContext = createContext<LevelsContextValue | undefined>(undefined);
 
