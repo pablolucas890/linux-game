@@ -1,6 +1,7 @@
 'use client';
 
 import Button from '@/src/components/button';
+import Card from '@/src/components/card';
 import { TypeWriterStage, TypeWriterStageConfig } from '@/src/types/props';
 import clsx from 'clsx';
 import { useI18n } from '../contexts/i18n';
@@ -38,7 +39,7 @@ export function TypeWriterContainer({
           : 'opacity-0 translate-y-4 pointer-events-none absolute',
       )}
     >
-      <div className='bg-(--color-surface) rounded-xl p-6 md:p-8 shadow-lg border border-(--color-surface-border) animate-fade-in'>
+      <Card.One padding='lg' animation='animate-fade-in'>
         <div
           className='flex flex-col gap-6 text-xl font-bold text-(--color-primary-light) font-mono *:transition-all *:duration-500 *:ease-in-out'
           style={{ fontFamily: 'var(--font-geist-mono)' }}
@@ -80,7 +81,7 @@ export function TypeWriterContainer({
             </Button.Two>
           </div>
         </div>
-      </div>
+      </Card.One>
     </div>
   );
 }

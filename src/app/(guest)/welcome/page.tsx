@@ -1,5 +1,6 @@
 'use client';
 
+import Card from '@/src/components/card';
 import { Upstream } from '@/src/components/upstream';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
@@ -45,7 +46,7 @@ export default function Welcome() {
   return (
     <div className='min-h-screen w-full flex flex-col items-center justify-center p-4 md:p-8'>
       <div className='w-full max-w-6xl flex flex-col items-center gap-8 md:gap-12'>
-        <div className='flex flex-col items-center gap-4 animate-fade-in bg-(--color-surface) rounded-xl p-6 shadow-lg border border-(--color-surface-border)'>
+        <Card.One padding='md' centered gap='4' animation='animate-fade-in'>
           <div className='relative w-32 h-32 md:w-40 md:h-40'>
             <Image src={logoImage} alt='Linux Game Logo' fill className='drop-shadow-2xl rounded-3xl' priority />
           </div>
@@ -55,7 +56,7 @@ export default function Welcome() {
             </h1>
             <p className='text-xl md:text-2xl text-(--color-text-secondary)'>{t('screens.welcome.subtitle')}</p>
           </div>
-        </div>
+        </Card.One>
 
         <div className='w-full max-w-4xl animate-slide-up'>
           <div className='relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-(--color-surface-border) transform hover:scale-[1.02] transition-transform duration-300'>
@@ -72,12 +73,12 @@ export default function Welcome() {
         </div>
 
         <div className='w-full max-w-4xl grid md:grid-cols-2 gap-8 animate-fade-in-delay'>
-          <div className='bg-(--color-surface) rounded-xl p-6 md:p-8 shadow-lg border border-(--color-surface-border)'>
+          <Card.One padding='lg'>
             <h2 className='text-2xl font-bold text-(--color-text) mb-4'>{t('screens.welcome.title')}</h2>
             <p className='text-gray-300 leading-relaxed text-lg'>{t('screens.welcome.description')}</p>
-          </div>
+          </Card.One>
 
-          <div className='bg-(--color-surface) rounded-xl p-6 md:p-8 shadow-lg border border-(--color-surface-border)'>
+          <Card.One padding='lg'>
             <h2 className='text-2xl font-bold text-(--color-text) mb-4'>{t('screens.welcome.features.title')}</h2>
             <ul className='space-y-3'>
               <li className='flex items-center gap-3 text-gray-300'>
@@ -97,16 +98,16 @@ export default function Welcome() {
                 <span>{t('screens.welcome.features.commands')}</span>
               </li>
             </ul>
-          </div>
+          </Card.One>
         </div>
 
         <div className='animate-bounce-in'>
           <Button.Two href='/one'>{t('screens.welcome.cta')}</Button.Two>
         </div>
 
-        <div className='w-full max-w-4xl bg-(--color-surface) rounded-xl p-6 shadow-lg border border-(--color-surface-border)'>
+        <Card.One maxWidth='max-w-4xl'>
           <Upstream />
-        </div>
+        </Card.One>
       </div>
     </div>
   );
