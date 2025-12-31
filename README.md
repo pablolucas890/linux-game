@@ -89,6 +89,7 @@ Contributions are very welcome! This project is under active development and you
 2. **Send Feedback**: Open an issue describing problems found or improvement ideas
 3. **Translations**: Help translate the project to other languages
 4. **Code**: Contribute with code following the project's best practices
+5. **Create Challenges**: Create new levels and challenges to help others learn Linux commands
 
 ### Areas That Need Help
 
@@ -97,6 +98,7 @@ Contributions are very welcome! This project is under active development and you
 - 🌍 Translations for new languages
 - 📝 Documentation improvements
 - 🎨 User interface improvements
+- 🎮 Create new levels and challenges
 
 ## 📝 License
 

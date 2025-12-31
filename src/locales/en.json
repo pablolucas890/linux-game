@@ -62,6 +62,12 @@
         "license": "License"
       }
     },
+    "register": {
+      "title": "Under Construction",
+      "message": "More levels coming soon!",
+      "subtitle": "We're working hard to bring you new challenges and amazing content.",
+      "contribute": "You can also contribute to the project by creating new challenges and content, see some links below."
+    },
     "levels": {
       "1": {
         "title": "Level One - What is the error line?",
