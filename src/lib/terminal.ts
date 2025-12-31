@@ -140,10 +140,11 @@ const getFileContent = (path: string, level: number): string => {
 };
 
 const grepResult = (content: string, pattern: string, showLines: boolean): string => {
+  const patternTrimmed = pattern.trim().toLowerCase().replace(/['"]/g, '');
   return content
     .split('\n')
     .map((line, index) => (showLines ? `<color=green>${index + 1}</color>: ${line}` : line))
-    .filter(line => line.toLowerCase().includes(pattern.toLowerCase()))
+    .filter(line => line.toLowerCase().includes(patternTrimmed))
     .join('\n');
 };
 
