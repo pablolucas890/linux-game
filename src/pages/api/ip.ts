@@ -13,10 +13,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         ? xForwardedForRaw
             .split(',')
             .map(s => s.trim())
-            .filter(Boolean)
-            .join(', ')
+            .filter(Boolean)[0]
         : Array.isArray(xForwardedForRaw)
-          ? xForwardedForRaw.join(', ')
+          ? xForwardedForRaw[0]
           : undefined;
 
     if (!xForwardedFor) {
