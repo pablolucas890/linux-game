@@ -85,6 +85,7 @@
           "three": [
             "Sua missão:",
             "Encontre a linha que contém uma palavra escrita errada (uma variação de 'public').",
+            "O arquivo que você precisa analisar é o site da empresa que usa o apache como servidor web.",
             "Use grep para filtrar e encontrar essa linha!"
           ]
         },

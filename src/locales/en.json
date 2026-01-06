@@ -85,6 +85,7 @@
           "three": [
             "Your mission:",
             "Find the line that contains a misspelled word (a variation of 'public').",
+            "The file you need to analyze is the website of the company that uses apache as a web server.",
             "Use grep to filter and find that line!"
           ]
         },
