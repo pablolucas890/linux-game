@@ -140,7 +140,7 @@ const getFileContent = (path: string, level: number): string => {
 };
 
 const grepResult = (content: string, pattern: string, showLines: boolean): string => {
-  const patternTrimmed = pattern.trim().toLowerCase().replace(/['"]/g, '');
+  const patternTrimmed = pattern.replace('-n', '').toLowerCase().replace(/['"]/g, '').trim();
   return content
     .split('\n')
     .map((line, index) => (showLines ? `<color=green>${index + 1}</color>: ${line}` : line))
@@ -238,10 +238,10 @@ export const executeCommand = (
   } else result = t('commands.errors.notFound', { cmd });
 
   if (commandHasGrep) {
-    let pattern = generalCmd.split(' | grep ')?.[1]?.trim();
-    const showLines = pattern?.includes('-n');
-    pattern = pattern?.replace('-n', '').trim();
-    result = grepResult(result, pattern, showLines);
+    const grepSplited = generalCmd.split(' | grep ').slice(1);
+    for (const pattern of grepSplited) {
+      result = grepResult(result, pattern, pattern.includes('-n'));
+    }
   }
   return result;
 };
