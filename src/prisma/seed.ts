@@ -5,25 +5,29 @@ import prisma from '../lib/prisma';
 const guestData: Prisma.GuestCreateInput[] = [
   {
     ip: '172.168.78.90',
-    entries: 0,
+    entries: 1,
+    city: 'São Paulo',
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     ip: '189.168.78.91',
     entries: 6,
+    city: 'São Paulo',
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     ip: '160.168.55.92',
     entries: 12,
+    city: 'São Paulo',
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     ip: '78.89.78.93',
-    entries: 0,
+    entries: 1,
+    city: 'São Paulo',
     createdAt: new Date(),
     updatedAt: new Date(),
   },

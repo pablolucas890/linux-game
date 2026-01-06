@@ -45,11 +45,15 @@ export default async function handler(
         throw new Error('IP not found');
       }
       const guest = await prisma.guest.findFirst({ where: { ip } });
+      const dataIp = await fetch('http://ip-api.com/json/' + ip);
+      const dataJsonIp = await dataIp.json();
+      const city = dataJsonIp?.city;
+
       if (guest) {
-        await prisma.guest.update({ where: { id: guest.id }, data: { entries: guest.entries + 1 } });
+        await prisma.guest.update({ where: { id: guest.id }, data: { entries: guest.entries + 1, city } });
         res.status(200).json({ message: 'Guest updated successfully', data: guest });
       } else {
-        await prisma.guest.create({ data: { ip, entries: 1 } });
+        await prisma.guest.create({ data: { ip, entries: 1, city } });
         res.status(200).json({ message: 'Guest created successfully' });
       }
     } else {
