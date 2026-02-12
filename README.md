@@ -16,7 +16,7 @@ The project is not yet complete, but you can already test the terminal and try o
 
 ## 🌐 Live Demo
 
-Try the game online: **[https://linux-game-production.up.railway.app/](https://linux-game-production.up.railway.app/)**
+Try the game online: **[https://linux-game.onrender.com](https://linux-game.onrender.com)**
 
 > **Note**: Project links are centralized in [`upstream.json`](./upstream.json). Update that file to change links across the project.
 
